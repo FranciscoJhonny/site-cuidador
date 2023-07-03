@@ -5,10 +5,10 @@ import {
   FormGroup,
   Validators,
 } from "@angular/forms";
-import { Cuidador } from "../cadastro-cuidador/models/cuidador";
-import { Telefone } from "../cadastro-cuidador/models/telefone";
+import { Cuidador } from "../../models/cuidador";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CuidadorService } from "../cuidador.service";
+import { Telefone } from "src/app/models/telefone";
 
 @Component({
   selector: "app-editar-cuidado",

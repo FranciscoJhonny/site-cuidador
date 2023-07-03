@@ -1,9 +1,10 @@
-import { Telefone } from './../cadastro-cuidador/models/telefone';
+
 import { Component, OnInit } from "@angular/core";
-import { Cuidador } from "../cadastro-cuidador/models/cuidador";
+import { Cuidador } from "../../models/cuidador";
 import { CuidadorService } from "../cuidador.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Telefone } from "src/app/models/telefone";
 
 @Component({
   selector: "app-detalhecuidador",
