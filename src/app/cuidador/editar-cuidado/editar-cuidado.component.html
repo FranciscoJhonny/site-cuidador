@@ -1,0 +1,177 @@
+<div class="container">
+  <!-- Form Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+      <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+          <h4 class="mb-3">Dados do Cuidador</h4>
+          <form
+            class="row g-3 needs-validation"
+            [formGroup]="cuidadorForm"
+            novalidate
+          >
+            <div class="col-md-10">
+              <label for="nomeCuidador" class="form-label"
+                >Nome do Cuidador</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="nomeCuidador"
+                placeholder="Nome (obrigatório)"
+                formControlName="nomeCuidador"
+                [(ngModel)]="nomeCuidador"
+                (ngModelChange)="handleInput($event)"
+                [ngClass]="{
+                  'is-invalid':
+                    cuidadorForm.get('nomeCuidador')!.errors &&
+                    (cuidadorForm.get('nomeCuidador')!.dirty ||
+                      cuidadorForm.get('nomeCuidador')!.touched)
+                }"
+              />
+              <span
+                class="text-danger"
+                *ngIf="
+                  cuidadorForm.get('nomeCuidador')?.errors &&
+                  (cuidadorForm.get('nomeCuidador')?.dirty ||
+                    cuidadorForm.get('nomeCuidador')?.touched)
+                "
+              >
+                Nome do cuidador é obrigatório</span
+              >
+            </div>
+            <div class="col-md-2">
+              <label for="categoria" class="form-label">Categoria</label>
+              <select
+                class="form-select"
+                id="categoriaId"
+                formControlName="categoriaId"
+                [ngClass]="{
+                  'is-invalid':
+                    cuidadorForm.get('categoriaId')!.errors &&
+                    (cuidadorForm.get('categoriaId')!.dirty ||
+                      cuidadorForm.get('categoriaId')!.touched)
+                }"
+              >
+                <option value="">Selecione</option>
+                <option value="1">AV</option>
+                <option value="2">MI</option>
+                <option value="3">MO</option>
+              </select>
+              <span
+                class="text-danger"
+                *ngIf="
+                  cuidadorForm.get('categoria')?.errors &&
+                  (cuidadorForm.get('categoria')?.dirty ||
+                    cuidadorForm.get('categoria')?.touched)
+                "
+                >Categoria obrigatório</span
+              >
+            </div>
+          </form>
+          <hr class="my-4" />
+          <div class="col-12">
+            <form [formGroup]="maskForm" class="row g-3">
+              <div class="col-md-2">
+                <label for="tipotelefone01" class="form-label"
+                  >Tipo Telefone</label
+                >
+                <select
+                  class="form-select"
+                  id="tipotelefone01"
+                  formControlName="tipotelefone01"
+                >
+                  <option value="">Selecione</option>
+                  <option value="1">Residencial</option>
+                  <option value="2">Celular</option>
+                  <option value="3">Fixo</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="telefone" class="form-label">Telefone</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="telefone01"
+                    name="telefone01"
+                    placeholder="(xx) xxxxx-xxxx"
+                    maxlength="15"
+                    (keyup)="phoneMask($event)"
+                    appOnlyNumbers
+                  />
+                  &nbsp;&nbsp;
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      (click)="adicionarTelefone()"
+                    >
+                      Adicionar telefone
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div class="table-responsive">
+            <h5 class="mb-3">Telefones</h5>
+            <table
+              class="table text-start align-middle table-bordered table-hover mb-0"
+            >
+              <thead>
+                <tr class="text-dark">
+                  <th scope="col">Tipo Telefone</th>
+                  <th scope="col">Numero Telefone</th>
+                  <th scope="col">Opções</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="listaTelefone.length > 0">
+                <tr *ngFor="let telefone of listaTelefone">
+                  <th scope="row">{{ telefone.descricaoTipoTelefone }}</th>
+                  <td>
+                    <span>{{ telefone.numeroTelefone | phone }}</span>
+                  </td>
+                  <td class="justify-content-center d-flex gap-2">
+                    <button
+                      class="btn btn-sm btn-primary rounded-pill px-3"
+                      href=""
+                      (click)="excluirTelefone(telefone)"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="listaTelefone.length === 0">
+                <tr>
+                  <th scope="row" colspan="3">Nenhum telefone cadastrado</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr class="my-4" />
+          <div class="col-12 d-flex gap-2">
+            <button
+              class="btn btn-sm btn-success rounded-pill px-3"
+              type="submit"
+              (click)="salvarCuidador()"
+              [disabled]="!(cuidadorForm.valid && listaTelefone.length > 0)"
+            >
+              Salvar
+            </button>
+            <button
+              class="btn btn-sm btn-primary rounded-pill px-3"
+              (click)="voltar()"
+            >
+              Voltar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form End -->
+</div>

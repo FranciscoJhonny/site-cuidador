@@ -1,0 +1,505 @@
+
+<!-- Content Start -->
+<div class="container">
+  <!-- Form Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+      <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+          <h4 class="mb-3">Dados do Paciente</h4>
+          <form class="row g-3 needs-validation" novalidate>
+            <div class="col-md-4">
+              <label for="paciente" class="form-label">Paciente</label>
+              <input type="text" class="form-control" id="paciente" required />
+              <div class="invalid-feedback">Nome do paciente é obrigatório</div>
+            </div>
+            <div class="col-md-4">
+              <label for="endereco" class="form-label">Endereço</label>
+              <input type="text" class="form-control" id="endereco" required />
+              <div class="invalid-feedback">Endereço é obrigatório</div>
+            </div>
+            <div class="col-md-4">
+              <label for="bairro" class="form-label">Bairro</label>
+              <input type="text" class="form-control" id="bairro" required />
+              <div class="invalid-feedback">Bairro é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="cep" class="form-label">CEP</label>
+              <input type="text" class="form-control" id="cep" required />
+              <div class="invalid-feedback">CEP é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="datanascimento" class="form-label">Data Nascimento</label>
+              <input
+                type="text"
+                class="form-control"
+                id="datanascimento"
+                required
+              />
+              <div class="invalid-feedback">Data Nascimento é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="idade" class="form-label">Idade</label>
+              <input type="text" class="form-control" id="idade" required />
+              <div class="invalid-feedback">Idade é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="telefone" class="form-label">Telefone</label>
+              <input type="text" class="form-control" id="telefone" required />
+              <div class="invalid-feedback">Telefone é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="validationCustom05" class="form-label">Data Inicio</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom05"
+                required
+              />
+              <div class="invalid-feedback">Data inicio é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="datarenovacao" class="form-label"
+                >Data Renovação</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="datarenovacao"
+                required
+              />
+              <div class="invalid-feedback">Data renovação é obrigatório</div>
+            </div>
+            <div class="col-md-6">
+              <label for="descricao" class="form-label">Descrição</label>
+              <textarea
+                class="form-control"
+                id="descricao"
+                style="height: 70px"
+                required
+              ></textarea>
+              <div class="invalid-feedback">Descrição é obrigatório</div>
+            </div>
+            <div class="col-md-6">
+              <label for="observacao" class="form-label">Observação</label>
+              <textarea
+                class="form-control"
+                id="observacao"
+                style="height: 70px"
+                required
+              ></textarea>
+              <div class="invalid-feedback">Observação é obrigatório</div>
+            </div>
+            <div class="col-md-6">
+              <label for="particularidade" class="form-label"
+                >Particularidade</label
+              >
+              <textarea
+                class="form-control"
+                id="particularidade"
+                style="height: 70px"
+                required
+              ></textarea>
+              <div class="invalid-feedback">Particularidade é obrigatório</div>
+            </div>
+            <div class="col-md-6"></div>
+            <div class="col-md-4">
+              <label for="reponsavel01" class="form-label"
+                >Responsável 01</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="reponsavel01"
+                required
+              />
+              <div class="invalid-feedback">Responsável 1 é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="telefone01" class="form-label">Telefone 01</label>
+              <input
+                type="text"
+                class="form-control"
+                id="telefone01"
+                required
+              />
+              <div class="invalid-feedback">Telefone 1 é obrigatório</div>
+            </div>
+            <div class="col-md-4">
+              <label for="reponsavel02" class="form-label"
+                >Responsável 02</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="reponsavel02"
+                required
+              />
+              <div class="invalid-feedback">Responsável é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="telefone02" class="form-label">Telefone 02</label>
+              <input
+                type="text"
+                class="form-control"
+                id="telefone02"
+                required
+              />
+              <div class="invalid-feedback">Telefone é obrigatório</div>
+            </div>
+            <div class="col-12">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="invalidCheck"
+                  required
+                />
+                <label class="form-check-label" for="invalidCheck">
+                  Ativado
+                </label>
+              </div>
+            </div> 
+            <p aria-hidden="true">
+              <span class="placeholder col-12"></span>
+            </p>
+            <h4 class="mb-3">Pacote</h4>
+            
+            <div class="col-md-2">
+              <label for="Cuidador01" class="form-label">Pacote mensal 01 </label>
+              <select class="form-select" id="cuidador01" required="">
+                <option value="">Selecione</option>
+                <option>24h de Segunda-feira à Domingo</option>
+                <option>24h de Segunda-feira à Sábado</option>
+                <option>24h de Segunda-feira à Sexta-feira</option>
+                <option>18h de Segunda-feira à Domingo</option>
+              </select>
+              <div class="invalid-feedback">Pacote mensal 01</div>
+            </div>
+            <div class="col-md-2">
+              <label for="diaPlantao01" class="form-label">Dia/Plantão</label>
+              <input  type="text" class="form-control"  id="pacoteMensalDia01" required />
+              <div class="invalid-feedback">Dia/Plantão é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="valorPacote01" class="form-label">Valor do pacote 01</label>
+              <input type="text" class="form-control" id="valorPacote01" required />
+              <div class="invalid-feedback">Valor do pacote</div>
+            </div>
+            <div class="col-md-2">
+              <label for="salarioCuidador01" class="form-label">Salario cuidador 01</label>
+              <input type="text" class="form-control" id="salarioCuidador01" required />
+              <div class="invalid-feedback">Salario cuidador 01 é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="diaCuidador01" class="form-label">Dia/Cuidador</label>
+              <input type="text" class="form-control" id="diaCuidador01" required />
+              <div class="invalid-feedback">Dia/Cuidador é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="valorCuidador01" class="form-label">Valor/Cuidador</label>
+              <input type="text"  class="form-control" id="valorCuidador01" required   />
+              <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
+            </div> 
+            <div class="col-md-2">
+              <label for="taxaAdminstrativa01" class="form-label">Taxa Administrativa</label>
+              <input type="text"  class="form-control" id="taxaAdminstrativa01" required   />
+              <div class="invalid-feedback">Taxa Administrativa é obrigatório</div>
+            </div>
+            <!-- ---------------            -->
+            <h6 class="mb-4"></h6> 
+            <div class="col-md-2">
+              <label for="Cuidador02" class="form-label">Pacote mensal 02 </label>
+              <select class="form-select" id="cuidador02" required="">
+                <option value="">Selecione</option>
+                <option>24h de Segunda-feira à Domingo</option>
+                <option>24h de Segunda-feira à Sábado</option>
+                <option>24h de Segunda-feira à Sexta-feira</option>
+                <option>18h de Segunda-feira à Domingo</option>
+              </select>
+              <div class="invalid-feedback">Pacote mensal 02</div>
+            </div>
+            <div class="col-md-2">
+              <label for="diaPlantao02" class="form-label">Dia/Plantão</label>
+              <input  type="text" class="form-control"  id="pacoteMensalDia02" required />
+              <div class="invalid-feedback">Dia/Plantão é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="valorPacote02" class="form-label">Valor do pacote 02</label>
+              <input type="text" class="form-control" id="valorPacote02" required />
+              <div class="invalid-feedback">Valor do pacote</div>
+            </div>
+            <div class="col-md-2">
+              <label for="salarioCuidador02" class="form-label">Salario cuidador 01</label>
+              <input type="text" class="form-control" id="salarioCuidador02" required />
+              <div class="invalid-feedback">Salario cuidador 01 é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="diaCuidador02" class="form-label">Dia/Cuidador</label>
+              <input type="text" class="form-control" id="diaCuidador02" required />
+              <div class="invalid-feedback">Dia/Cuidador é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="valorCuidador02" class="form-label">Valor/Cuidador</label>
+              <input type="text"  class="form-control" id="valorCuidador02" required   />
+              <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
+            </div> 
+            <div class="col-md-2">
+              <label for="taxaAdminstrativa02" class="form-label">Taxa Administrativa</label>
+              <input type="text"  class="form-control" id="taxaAdminstrativa02" required   />
+              <div class="invalid-feedback">Taxa Administrativa é obrigatório</div>
+            </div>      
+            <!-- -------------------------- -->
+            <p aria-hidden="true">
+              <span class="placeholder col-12"></span>
+            </p>
+            <h4 class="mb-3">Atendimento</h4>            
+            <div class="bd-example-snippet bd-code-snippet">
+              <div class="bd-example m-0 border-0">
+              <ul class="list-group list-group-horizontal list-group-item-dark">
+                <li class="list-group-item col-md-5"><div>
+                  <label for="Cuidador01" class="form-label">Nome do Cuidador 01 </label>
+                  <select class="form-select" id="cuidador01" required="">
+                    <option value="">Selecione</option>
+                    <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+                    <option>LAUDICEIA RODRIGUES DE PAULA</option>
+                    <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+                    <option>LOUZIANA ALVES</option>
+                  </select>
+                  <div class="invalid-feedback">Nome do cuidador é obrigatório</div>
+                </div></li>
+                <li class="list-group-item col-md-2"> 
+                  <div>
+                  <label for="turno02" class="form-label">Turno</label>
+                  <select class="form-select" id="turno02" required="">
+                    <option value="">Selecione</option>
+                    <option>Diurno</option>
+                    <option>Noturno</option>                
+                  </select>
+                  <div class="invalid-feedback">Turno é obrigatório</div>
+                </div></li>
+                <li class="list-group-item col-md-2"><div >
+                  <label for="dataInicio02" class="form-label">Data Inicio</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="dataInicio02"
+                    required
+                  />
+                  <div class="invalid-feedback">Data inicio é obrigatório</div>
+                </div></li>
+              </ul>
+              </div>            
+            </div>
+           <!-- ----------------------------------------------------------------------------- -->
+           <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example m-0 border-0">
+            <ul class="list-group list-group-horizontal list-group-item-dark">
+              <li class="list-group-item col-md-5"><div>
+                <label for="cuidador02" class="form-label">Nome do Cuidador 02 </label>
+                <select class="form-select" id="cuidador02" required="">
+                  <option value="">Selecione</option>
+                  <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+                  <option>LAUDICEIA RODRIGUES DE PAULA</option>
+                  <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+                  <option>LOUZIANA ALVES</option>
+                </select>
+                <div class="invalid-feedback">Nome do cuidador</div>
+              </div></li>
+              <li class="list-group-item col-md-2"> 
+                <div>
+                <label for="turno02" class="form-label">Turno</label>
+                <select class="form-select" id="turno02" required="">
+                  <option value="">Selecione</option>
+                  <option>Diurno</option>
+                  <option>Noturno</option>                
+                </select>
+                <div class="invalid-feedback">Turno é obrigatório</div>
+              </div></li>
+              <li class="list-group-item col-md-2"><div >
+                <label for="dataInicio01" class="form-label">Data Inicio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dataInicio01"
+                  required
+                />
+                <div class="invalid-feedback">Data inicio é obrigatório</div>
+              </div></li>
+            </ul>
+            </div>            
+          </div>
+          <!-- --------------------------------------------------------------------- -->
+
+          <div class="bd-example-snippet bd-code-snippet">
+            <div class="bd-example m-0 border-0">
+            <ul class="list-group list-group-horizontal list-group-item-dark">
+              <li class="list-group-item col-md-5"><div>
+                <label for="cuidador03" class="form-label">Nome do Cuidador 03 </label>
+                <select class="form-select" id="cuidador02" required="">
+                  <option value="">Selecione</option>
+                  <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+                  <option>LAUDICEIA RODRIGUES DE PAULA</option>
+                  <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+                  <option>LOUZIANA ALVES</option>
+                </select>
+                <div class="invalid-feedback">Nome do cuidador</div>
+              </div></li>
+              <li class="list-group-item col-md-2"> 
+                <div>
+                <label for="turno03" class="form-label">Turno</label>
+                <select class="form-select" id="turno03" required="">
+                  <option value="">Selecione</option>
+                  <option>Diurno</option>
+                  <option>Noturno</option>                
+                </select>
+                <div class="invalid-feedback">Turno é obrigatório</div>
+              </div></li>
+              <li class="list-group-item col-md-2"><div >
+                <label for="dataInicio03" class="form-label">Data Inicio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="dataInicio03"
+                  required
+                />
+                <div class="invalid-feedback">Data inicio é obrigatório</div>
+              </div></li>
+            </ul>
+            </div>            
+          </div>
+       <!-- ---------------------------------------------------------- -->
+
+       <div class="bd-example-snippet bd-code-snippet">
+        <div class="bd-example m-0 border-0">
+        <ul class="list-group list-group-horizontal list-group-item-dark">
+          <li class="list-group-item col-md-5"><div>
+            <label for="cuidador04" class="form-label">Nome do Cuidador 04 </label>
+            <select class="form-select" id="cuidador04" required="">
+              <option value="">Selecione</option>
+              <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+              <option>LAUDICEIA RODRIGUES DE PAULA</option>
+              <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+              <option>LOUZIANA ALVES</option>
+            </select>
+            <div class="invalid-feedback">Nome do cuidador</div>
+          </div></li>
+          <li class="list-group-item col-md-2"> 
+            <div>
+            <label for="turno04" class="form-label">Turno</label>
+            <select class="form-select" id="turno04" required="">
+              <option value="">Selecione</option>
+              <option>Diurno</option>
+              <option>Noturno</option>                
+            </select>
+            <div class="invalid-feedback">Turno é obrigatório</div>
+          </div></li>
+          <li class="list-group-item col-md-2"><div >
+            <label for="dataInicio04" class="form-label">Data Inicio</label>
+            <input
+              type="text"
+              class="form-control"
+              id="dataInicio04"
+              required
+            />
+            <div class="invalid-feedback">Data inicio é obrigatório</div>
+          </div></li>
+        </ul>
+        </div>  
+        </div>
+
+        <!-- ----------------------------------------------------------------------------- -->
+
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example m-0 border-0">
+          <ul class="list-group list-group-horizontal list-group-item-dark">
+            <li class="list-group-item col-md-5"><div>
+              <label for="cuidador05" class="form-label">Nome do Cuidador 05 </label>
+              <select class="form-select" id="cuidador05" required="">
+                <option value="">Selecione</option>
+                <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+                <option>LAUDICEIA RODRIGUES DE PAULA</option>
+                <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+                <option>LOUZIANA ALVES</option>
+              </select>
+              <div class="invalid-feedback">Nome do cuidador</div>
+            </div></li>
+            <li class="list-group-item col-md-2"> 
+              <div>
+              <label for="turno05" class="form-label">Turno</label>
+              <select class="form-select" id="turno05" required="">
+                <option value="">Selecione</option>
+                <option>Diurno</option>
+                <option>Noturno</option>                
+              </select>
+              <div class="invalid-feedback">Turno é obrigatório</div>
+            </div></li>
+            <li class="list-group-item col-md-2"><div >
+              <label for="dataInicio05" class="form-label">Data Inicio</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dataInicio05"
+                required
+              />
+              <div class="invalid-feedback">Data inicio é obrigatório</div>
+            </div></li>
+          </ul>
+          </div>  
+          </div>          
+        
+        <div class="bd-example-snippet bd-code-snippet">
+          <div class="bd-example m-0 border-0">
+          <ul class="list-group list-group-horizontal list-group-item-dark ">
+            <li class="list-group-item col-md-5"><div>
+              <label for="cuidador06" class="form-label">Nome do Cuidador 06 </label>
+              <select class="form-select" id="cuidador05" required="">
+                <option value="">Selecione</option>
+                <option>MARIA DA CONCEIÇÃO VALENCUELA</option>
+                <option>LAUDICEIA RODRIGUES DE PAULA</option>
+                <option>ERENITA MORAIS DA SILVA DOS SANTOS</option>
+                <option>LOUZIANA ALVES</option>
+              </select>
+              <div class="invalid-feedback">Nome do cuidador</div>
+            </div></li>
+            <li class="list-group-item col-md-2"> 
+              <div>
+              <label for="turno06" class="form-label">Turno</label>
+              <select class="form-select" id="turno05" required="">
+                <option value="">Selecione</option>
+                <option>Diurno</option>
+                <option>Noturno</option>                
+              </select>
+              <div class="invalid-feedback">Turno é obrigatório</div>
+            </div></li>
+            <li class="list-group-item col-md-2"><div >
+              <label for="dataInicio06" class="form-label">Data Inicio</label>
+              <input
+                type="text"
+                class="form-control"
+                id="dataInicio06"
+                required
+              />
+              <div class="invalid-feedback">Data inicio é obrigatório</div>
+            </div></li>
+          </ul>
+          </div>  
+          <h4 class="mb-3"></h4>  
+          <p aria-hidden="true">
+            <span class="placeholder col-12"></span>
+          </p>          
+         </div>
+         
+            <div class="col-12">
+              <button class="btn btn-primary" type="submit">Salvar</button>
+            </div>
+          </form>
+        </div>
+      </div>      
+    </div>
+  </div>
+  
+  <!-- Form End -->
+</div>
+<!-- Content End -->
