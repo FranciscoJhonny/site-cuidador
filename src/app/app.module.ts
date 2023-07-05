@@ -19,6 +19,7 @@ import { ListaCuidadorComponent } from "./cuidador/lista-cuidador/lista-cuidador
 import { DetalheCuidadorComponent } from "./cuidador/detalhe-cuidador/detalhe-cuidador.component";
 import { SharedModule } from "./shared/shared.module";
 import { EditarCuidadoComponent } from "./cuidador/editar-cuidado/editar-cuidado.component";
+import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro-paciente.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EditarCuidadoComponent } from "./cuidador/editar-cuidado/editar-cuidado
     CadastroCuidadorComponent,
     ListaCuidadorComponent,
     DetalheCuidadorComponent,
-    EditarCuidadoComponent
+    EditarCuidadoComponent,
+    CadastroPacienteComponent
   ],
   imports: [
     BrowserModule, 

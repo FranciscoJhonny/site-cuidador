@@ -42,7 +42,7 @@ export class EditarCuidadoComponent implements OnInit {
 
     this.cuidadorForm = this.fb.group({
       nomeCuidador: new FormControl("", Validators.required),
-      categoriaId: new FormControl("", Validators.required), 
+      categoriaId: new FormControl("", Validators.required),
     });
     this.carregarCuidadores();
     this.createForm();

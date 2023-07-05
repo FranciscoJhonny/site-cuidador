@@ -1,0 +1,198 @@
+<div class="container">
+  <!-- Form Start -->
+  <div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+      <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+          <h4 class="mb-3">Dados do Paciente</h4>
+          <form class="row g-3 needs-validation"  [formGroup]="pacienteForm" novalidate>
+            <div class="col-md-4">
+              <label for="paciente" class="form-label">Paciente</label>
+              <input type="text" class="form-control" id="paciente"  placeholder="Nome (obrigatório)" formControlName="paciente" [(ngModel)]="paciente"
+              (ngModelChange)="handleInput($event,'paciente')"   [ngClass]="{'is-invalid': pacienteForm.get('paciente')!.errors &&
+              (pacienteForm.get('paciente')!.dirty || pacienteForm.get('paciente')!.touched)}"  />             
+              <div class="invalid-feedback">Nome do paciente é obrigatório</div>
+            </div>
+            <div class="col-md-4">
+              <label for="endereco" class="form-label">Endereço</label>
+              <input type="text" class="form-control" id="endereco"  placeholder="Endereço (obrigatório)" formControlName="endereco" [(ngModel)]="endereco"
+              (ngModelChange)="handleInput($event,'endereco')"   [ngClass]="{'is-invalid': pacienteForm.get('endereco')!.errors &&
+              (pacienteForm.get('endereco')!.dirty || pacienteForm.get('endereco')!.touched)}"  />
+              <div class="invalid-feedback">Endereço é obrigatório</div>
+            </div>
+            <div class="col-md-4">
+              <label for="bairro" class="form-label">Bairro</label>
+              <input type="text" class="form-control" id="bairro"  placeholder="Bairro (obrigatório)" formControlName="bairro" [(ngModel)]="bairro"
+              (ngModelChange)="handleInput($event,'bairro')"   [ngClass]="{'is-invalid': pacienteForm.get('bairro')!.errors &&
+              (pacienteForm.get('bairro')!.dirty || pacienteForm.get('bairro')!.touched)}"  />
+              <div class="invalid-feedback">Bairro é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="cep" class="form-label">CEP</label>
+              <input type="text" class="form-control" id="cep" mask="0000-000" formControlName="cep" />
+            </div>
+            <div class="col-md-2">
+              <label for="dataNascimento" class="form-label">Data Nascimento</label>
+              <input type="text" class="form-control"id="dataNascimento" mask="00/00/0000" placeholder="D. Nascimento (obrigatório)" formControlName="dataNascimento" 
+              [(ngModel)]="dataNascimento" [ngClass]="{'is-invalid': pacienteForm.get('dataNascimento')!.errors &&
+              (pacienteForm.get('dataNascimento')!.dirty || pacienteForm.get('dataNascimento')!.touched)}"  (blur)="calcularIdade(dataNascimento)"/>
+              <div class="invalid-feedback">Data Nascimento é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="idade" class="form-label">Idade</label>
+              <input type="text" class="form-control" id="idade" formControlName="idade"  [(ngModel)]="idade" />
+            </div>           
+            <div class="col-md-2">
+              <label for="datainicio" class="form-label">Data Inicio</label>
+              <input type="text"
+                class="form-control" id="datainicio" mask="00/00/0000"  />
+              <div class="invalid-feedback">Data inicio é obrigatório</div>
+            </div>
+            <div class="col-md-2">
+              <label for="datarenovacao" class="form-label">Data Renovação</label >
+              <input type="text" class="form-control" id="datarenovacao"   />
+              <div class="invalid-feedback">Data renovação é obrigatório</div>
+            </div>
+            <div class="col-md-6">
+              <label for="descricao" class="form-label">Descrição</label>
+              <textarea class="form-control" id="descricao"style="height: 70px"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label for="observacao" class="form-label">Observação</label>
+              <textarea class="form-control" id="observacao" style="height: 70px"></textarea>
+            </div>
+            <div class="col-md-6">
+              <label for="particularidade" class="form-label">Particularidade</label>
+              <textarea class="form-control"id="particularidade"style="height: 70px" ></textarea>
+            </div>
+            <div class="col-md-6"></div>            
+          </form>
+          <hr class="my-4" />
+          <div class="col-12">
+            <form [formGroup]="telefonePacienteForm" class="row g-3">
+              <div class="col-md-2">
+                <label for="tipotelefone" class="form-label">Tipo Telefone</label>
+                <select class="form-select" id="tipotelefone" formControlName="tipotelefone">
+                  <option value="">Selecione</option>
+                  <option value="1">Residencial</option>
+                  <option value="2">Celular</option>
+                  <option value="3">Fixo</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="telefone" class="form-label">Telefone</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" formControlName="telefone" name="telefone" placeholder="(00) 00000-0000"
+                   maxlength="15"(keyup)="phoneMask($event)" appOnlyNumbers/>
+                  &nbsp;&nbsp;
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="adicionarTelefone()" >
+                      Adicionar telefone
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div class="table-responsive">
+            <h5 class="mb-3">Telefones do Paciente</h5>
+            <table class="table text-start align-middle table-bordered table-hover mb-0" >
+              <thead>
+                <tr class="text-dark">
+                  <th scope="col">Tipo Telefone</th>
+                  <th scope="col">Numero Telefone</th>
+                  <th scope="col">Opções</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="listaTelefonePaciente.length > 0">
+                <tr *ngFor="let telefone of listaTelefonePaciente">
+                  <th scope="row">{{ telefone.descricaoTipoTelefone }}</th>
+                  <td>
+                    <span>{{ telefone.numeroTelefone | phone }}</span>
+                  </td>
+                  <td class="justify-content-center d-flex gap-2">
+                    <button class="btn btn-sm btn-primary rounded-pill px-3" href="" (click)="excluirTelefone(telefone)">
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="listaTelefonePaciente.length === 0">
+                <tr>
+                  <th scope="row" colspan="3">Nenhum telefone cadastrado</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <hr class="my-4" />
+          <div class="col-12">
+            <form [formGroup]="telefonePacienteForm" class="row g-3">
+              <div class="col-md-4">
+                <label for="reponsavel01" class="form-label">Responsável</label >
+                <input type="text"class="form-control" id="reponsavel"/>
+              </div>
+              <div class="col-md-2">
+                <label for="tipotelefone" class="form-label">Tipo Telefone</label>
+                <select class="form-select" id="tipotelefone" formControlName="tipotelefone">
+                  <option value="">Selecione</option>
+                  <option value="1">Residencial</option>
+                  <option value="2">Celular</option>
+                  <option value="3">Fixo</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="telefone" class="form-label">Telefone</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" formControlName="telefone" name="telefone" placeholder="(00) 00000-0000"
+                   maxlength="15"(keyup)="phoneMask($event)" appOnlyNumbers/>
+                  &nbsp;&nbsp;
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="adicionarTelefone()" >
+                      Adicionar telefone
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <br>
+          <div class="table-responsive">
+            <h5 class="mb-3">Telefones do Responsável</h5>
+            <table class="table text-start align-middle table-bordered table-hover mb-0" >
+              <thead>
+                <tr class="text-dark">
+                  <th scope="col">Reponsável</th>
+                  <th scope="col">Tipo Telefone</th>
+                  <th scope="col">Numero Telefone</th>
+                  <th scope="col">Opções</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="listaTelefonePaciente.length > 0">
+                <tr *ngFor="let telefone of listaTelefonePaciente">
+                  <td>
+                    <span>{{ telefone.numeroTelefone | phone }}</span>
+                  </td>
+                  <th scope="row">{{ telefone.descricaoTipoTelefone }}</th>
+                  <td>
+                    <span>{{ telefone.numeroTelefone | phone }}</span>
+                  </td>
+                  <td class="justify-content-center d-flex gap-2">
+                    <button class="btn btn-sm btn-primary rounded-pill px-3" href="" (click)="excluirTelefone(telefone)">
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody *ngIf="listaTelefonePaciente.length === 0">
+                <tr>
+                  <th scope="row" colspan="4">Nenhum telefone cadastrado</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

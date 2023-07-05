@@ -11,73 +11,32 @@
             novalidate
           >
             <div class="col-md-10">
-              <label for="nomeCuidador" class="form-label"
-                >Nome do Cuidador</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="nomeCuidador"
-                placeholder="Nome (obrigatório)"
-                formControlName="nomeCuidador"
-                [(ngModel)]="nomeCuidador"
-                (ngModelChange)="handleInput($event)"
-                [ngClass]="{
-                  'is-invalid':
-                    cuidadorForm.get('nomeCuidador')!.errors &&
-                    (cuidadorForm.get('nomeCuidador')!.dirty ||
-                      cuidadorForm.get('nomeCuidador')!.touched)
-                }"
-              />
-              <span
-                class="text-danger"
-                *ngIf="
-                  cuidadorForm.get('nomeCuidador')?.errors &&
-                  (cuidadorForm.get('nomeCuidador')?.dirty ||
-                    cuidadorForm.get('nomeCuidador')?.touched)
-                "
-              >
-                Nome do cuidador é obrigatório</span
-              >
+              <label for="nomeCuidador" class="form-label">Nome do Cuidador</label>
+              <input type="text" class="form-control" id="nomeCuidador" placeholder="Nome (obrigatório)" formControlName="nomeCuidador" [(ngModel)]="nomeCuidador"
+                (ngModelChange)="handleInput($event)" [ngClass]="{'is-invalid': cuidadorForm.get('nomeCuidador')!.errors &&
+                    (cuidadorForm.get('nomeCuidador')!.dirty || cuidadorForm.get('nomeCuidador')!.touched)}" />
+              <span class="text-danger" *ngIf=" cuidadorForm.get('nomeCuidador')?.errors 
+              && (cuidadorForm.get('nomeCuidador')?.dirty || cuidadorForm.get('nomeCuidador')?.touched)">
+                      Nome do cuidador é obrigatório</span >
             </div>
             <div class="col-md-2">
               <label for="categoria" class="form-label">Categoria</label>
-              <select
-                class="form-select"
-                id="categoriaId"
-                formControlName="categoriaId"
-                [ngClass]="{
-                  'is-invalid':
-                    cuidadorForm.get('categoriaId')!.errors &&
-                    (cuidadorForm.get('categoriaId')!.dirty ||
-                      cuidadorForm.get('categoriaId')!.touched)
-                }"
-              >
+              <select class="form-select" id="categoriaId"
+                formControlName="categoriaId"[ngClass]="{'is-invalid':cuidadorForm.get('categoriaId')!.errors
+                 && (cuidadorForm.get('categoriaId')!.dirty || cuidadorForm.get('categoriaId')!.touched)}" >
                 <option value="">Selecione</option>
                 <option value="1">AV</option>
                 <option value="2">MI</option>
                 <option value="3">MO</option>
               </select>
-              <span
-                class="text-danger"
-                *ngIf="
-                  cuidadorForm.get('categoria')?.errors &&
-                  (cuidadorForm.get('categoria')?.dirty ||
-                    cuidadorForm.get('categoria')?.touched)
-                "
-                >Categoria obrigatório</span
-              >
+              <span class="text-danger" *ngIf=" cuidadorForm.get('categoria')?.errors
+               && (cuidadorForm.get('categoria')?.dirty || cuidadorForm.get('categoria')?.touched)"
+                >Categoria obrigatório</span>
             </div>
 
             <div class="col-md-2">
-              <label for="tipotelefone01" class="form-label"
-                >Tipo Telefone</label
-              >
-              <select
-                class="form-select"
-                id="tipotelefone01"
-                formControlName="tipotelefone01"
-              >
+              <label for="tipotelefone01" class="form-label">Tipo Telefone</label>
+              <select class="form-select" id="tipotelefone01" formControlName="tipotelefone01" >
                 <option value="">Selecione</option>
                 <option value="1">Residencial</option>
                 <option value="2">Celular</option>
@@ -86,21 +45,11 @@
             </div>
             <div class="col-md-4">
               <label for="telefone01" class="form-label">Telefone </label>
-              <input
-                type="text"
-                class="form-control"
-                id="telefone01"
-                placeholder="Telefone (obrigatório)"
-                [(ngModel)]="telefone01"
-                mask="(00) 00000-0000"
-                formControlName="telefone01"              
-              />           
+              <input type="text" class="form-control" id="telefone01" placeholder="Telefone (obrigatório)" [(ngModel)]="telefone01" mask="(00) 00000-0000"
+                formControlName="telefone01"/>           
             </div>
             <div class="col-md-12 align-self-end mx-auto">
-              <button
-                class="btn btn-primary mb-3"
-                (click)="adicionarTelefone()"
-              >
+              <button  class="btn btn-primary mb-3" (click)="adicionarTelefone()" >
                 Adicionar telefone
               </button>
             </div>
