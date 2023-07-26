@@ -1,0 +1,18 @@
+<!-- <div class="modal" id="myModal" tabindex="-1" >
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      
+        <div class="alert alert-{{type}} alert-dismissible" role="alert" style="margin-bottom: 0;"> -->
+          <!-- <strong>Holy guacamole!</strong> You should check in on some of those fields below. -->
+          <!-- {{message}} -->
+         
+          <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="alert alert-{{type}} alert-dismissible" role="alert" style="margin-bottom: 0;">
+  {{message}}
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="onClose()"></button>
+</div>

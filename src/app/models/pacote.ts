@@ -1,6 +1,6 @@
 export interface Pacote {
     pacoteId:number;
-    descircaoPacote:string;
+    descricaoPacote:string;
     valorPacote:number;
     ativo:boolean;
 }

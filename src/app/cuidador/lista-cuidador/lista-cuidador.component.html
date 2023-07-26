@@ -1,61 +1,47 @@
 <div class="container" *ngIf="!exitCuidador">
-  <!-- Recent Sales Start -->
   <div class="container-fluid pt-4 px-4">
-    <div class="bg-light text-center rounded p-4">
-      <div class="d-flex align-items-center justify-content-between mb-4">
-        <h5 class="me-auto mb-0">Cuidador</h5>
-        <button
-          type="button"
-          class="btn btn-primary"
-          (click)="cadastrarCuidador()"
-        >
-          Cadastrar
-        </button>
-        <hr />
-      </div>
-      <div class="table-responsive">
-        <table
-          class="table text-start align-middle table-bordered table-hover mb-0"
-        >
-          <thead>
-            <tr class="text-dark">
-              <th scope="col">#</th>
-              <th scope="col">Nome</th>
-              <th scope="col">Telefone</th>
-              <th scope="col">Opções</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cuidador of cuidadores">
-              <th scope="row">{{ cuidador.cuidadorId }}</th>
-              <td>{{ cuidador.nomeCuidador }}</td>
-              <td>
-                <span *ngFor="let a of cuidador.telefonesCuidador"
-                  ><span>{{ a.numeroTelefone | phone }}</span></span
-                >
-              </td>
-              <td class="justify-content-center d-flex gap-2">
-                <button
-                  class="btn btn-sm btn-primary rounded-pill px-3"
-                  href=""
-                  (click)="cuidadorDetalhe(cuidador)"
-                >
-                  Detalhe
-                </button>
-                <button
-                  (click)="editarCuidador(cuidador)"
-                  class="btn btn-sm btn-warning rounded-pill px-3"
-                  href=""
-                >
-                  Editar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+     <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+           <h5 class="me-auto mb-0">Cuidador</h5>
+           <button type="button" class="btn btn-primary"
+              (click)="cadastrarCuidador()">
+              Cadastrar
+           </button>
+           <hr />
+        </div>
+        <div class="table-responsive">
+           <table
+              class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+              <thead>
+                 <tr class="text-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Opções</th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let cuidador of cuidadores">
+                    <th scope="row">{{ cuidador.cuidadorId }}</th>
+                    <td>{{ cuidador.nomeCuidador }}</td>
+                    <td>
+                       <span *ngFor="let a of cuidador.telefonesCuidador">
+                        <span>{{ a.numeroTelefone | phone }}</span>
+                      </span>
+                    </td>
+                    <td class="justify-content-center d-flex gap-2">
+                       <button class="btn btn-sm btn-primary rounded-pill px-3" href="" (click)="cuidadorDetalhe(cuidador)">
+                        Detalhe
+                       </button>
+                       <button  (click)="editarCuidador(cuidador)" class="btn btn-sm btn-warning rounded-pill px-3" href="">
+                        Editar
+                       </button>
+                    </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+     </div>
   </div>
-  <!-- Recent Sales End -->
 </div>
-

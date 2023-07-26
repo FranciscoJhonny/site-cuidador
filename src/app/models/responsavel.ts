@@ -1,10 +1,9 @@
 import { Telefone } from "./telefone";
 
-export interface Reponsavel {
+export interface Responsavel {
     responsavelId:number;
     pacienteId:number;
-    nomeResponsavel:number;
+    nomeResponsavel:string;
     ativo:boolean;
-    telefonesResponsavel: Telefone [];
-
+    telefonesResponsavel: Telefone[];
 }

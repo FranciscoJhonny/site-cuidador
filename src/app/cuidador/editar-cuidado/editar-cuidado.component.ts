@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { Cuidador } from "../../models/cuidador";
 import { ActivatedRoute, Router } from "@angular/router";
-import { CuidadorService } from "../cuidador.service";
+import { CuidadorService } from "../../services/cuidador.service";
 import { Telefone } from "src/app/models/telefone";
 
 @Component({

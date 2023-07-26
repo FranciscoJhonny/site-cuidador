@@ -20,6 +20,21 @@ import { DetalheCuidadorComponent } from "./cuidador/detalhe-cuidador/detalhe-cu
 import { SharedModule } from "./shared/shared.module";
 import { EditarCuidadoComponent } from "./cuidador/editar-cuidado/editar-cuidado.component";
 import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro-paciente.component";
+import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
+import { AlertModalComponent } from "./shared/alert-modal/alert-modal.component";
+import { ModalModule } from 'ngx-bootstrap/modal';
+
+
+
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: "right",
+  allowNegative: true,
+  decimal: ",",
+  precision: 2,
+  prefix: "R$ ",
+  suffix: "",
+  thousands: "."
+};
 
 @NgModule({
   declarations: [
@@ -30,7 +45,9 @@ import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro
     ListaCuidadorComponent,
     DetalheCuidadorComponent,
     EditarCuidadoComponent,
-    CadastroPacienteComponent
+    CadastroPacienteComponent,
+    AlertModalComponent
+    
   ],
   imports: [
     BrowserModule, 
@@ -41,9 +58,12 @@ import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro
     NgxMaskPipe,    
     HttpClientModule,
     SharedModule,
+    CurrencyMaskModule,
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: "/" },
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     provideNgxMask()
   ],
   bootstrap: [AppComponent],

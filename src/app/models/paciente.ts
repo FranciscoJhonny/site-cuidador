@@ -1,6 +1,6 @@
-import { Endereco } from "./Endereco";
 import { Atendimento } from "./atendimento";
-import { Pacinte_Pacote } from "./pacinte_pacote";
+import { Endereco } from "./endereco";
+import { Paciente_Pacote } from "./paciente_pacote";
 import { Telefone } from "./telefone";
 
 export interface Paciente {
@@ -15,7 +15,7 @@ export interface Paciente {
   jornada: string;
   ativo: boolean;
   enderecoPacientes: Endereco [];
-  pacientePacotes:Pacinte_Pacote[];
+  pacientePacotes:Paciente_Pacote[];
   atendimentos:Atendimento[];
   telefonesPaciente:Telefone[];
 }

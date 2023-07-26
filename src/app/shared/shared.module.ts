@@ -13,6 +13,6 @@ import { PhonePipe } from './phone-pipe/phone.pipe';
   ],
   exports: [
     PhonePipe
-  ]
+  ],  
 })
 export class SharedModule { }

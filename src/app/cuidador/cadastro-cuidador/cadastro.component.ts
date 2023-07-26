@@ -1,4 +1,4 @@
-import { CuidadorService } from "./../cuidador.service";
+import { CuidadorService } from "../../services/cuidador.service";
 import { Cuidador } from "../../models/cuidador";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";

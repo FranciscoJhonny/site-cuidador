@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Cuidador } from "../../models/cuidador";
-import { CuidadorService } from "../cuidador.service";
+import { CuidadorService } from "../../services/cuidador.service";
 import { Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Telefone } from "src/app/models/telefone";
