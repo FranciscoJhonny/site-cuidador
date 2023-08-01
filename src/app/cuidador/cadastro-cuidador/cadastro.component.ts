@@ -1,10 +1,9 @@
+import { Telefone } from './../../models/telefone';
 import { CuidadorService } from "../../services/cuidador.service";
 import { Cuidador } from "../../models/cuidador";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Telefone } from "src/app/models/telefone";
-
 
 @Component({
   selector: "app-cadastro",

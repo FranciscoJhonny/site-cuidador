@@ -4,7 +4,7 @@ import { Cuidador } from "../../models/cuidador";
 import { CuidadorService } from "../../services/cuidador.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Telefone } from "src/app/models/telefone";
+import { Telefone } from './../../models/telefone';
 
 @Component({
   selector: "app-detalhecuidador",
@@ -33,8 +33,8 @@ export class DetalheCuidadorComponent implements OnInit {
   ngOnInit() {
     this.listaTelefone = [];
     this.cadastroForm = this.fb.group({
-      nomeCuidador: ["", Validators.required],
-      categoriaId: ["", Validators.required]
+      nomeCuidador: [{ value: "", disabled: true }, Validators.required],
+      categoriaId: [{ value: "", disabled: true }, Validators.required]
     });
     this.carregarCuidadores();
   }
@@ -43,8 +43,8 @@ export class DetalheCuidadorComponent implements OnInit {
     this.cuidadorService.getById(this.cuidadorId).subscribe(
       (cuidador: Cuidador) => {
         this.cadastroForm = this.fb.group({
-          nomeCuidador: cuidador.nomeCuidador,
-          categoriaId: cuidador.categoriaId,
+          nomeCuidador: [{ value:cuidador.nomeCuidador, disabled: true }], 
+          categoriaId: [{ value:cuidador.categoriaId, disabled: true }],
         })
         this.listaTelefone = cuidador.telefonesCuidador;       
       },

@@ -1,38 +1,41 @@
+import { Paciente } from 'src/app/models/paciente';
+import { EnderecoPutDto } from './../../models/enderecoPutDto';
+import { Responsavel } from './../../models/responsavel';
+import { AlertModalService } from './../../shared/alert-modal.service';
 import { TurnoService } from './../../services/turno.service';
+import { CuidadorService } from './../../services/cuidador.service';
+import { PacoteService } from './../../services/pacote.service';
+import { PacienteService } from './../../services/paciente.service';
+import { Paciente_PacotePutDto } from './../../models/paciente_pacotePutDto';
+import { Atendimento } from './../../models/atendimento';
 import { Paciente_Pacote } from './../../models/paciente_pacote';
+import { ResponsavelPutDto } from './../../models/responsavelPutDto';
 import { Telefone } from './../../models/telefone';
 import { Turno } from './../../models/turno';
 import { Cuidador } from './../../models/cuidador';
 import { Pacote } from './../../models/pacote';
-import { Atendimento } from './../../models/atendimento';
-import { AlertModalService } from './../../shared/alert-modal.service';
-import { PacientePostDto } from './../../models/pacientePostDto';
-import { Responsavel } from './../../models/responsavel';
-import { Component, Input, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
- import { CuidadorService } from './../../services/cuidador.service';
-import { PacoteService } from './../../services/pacote.service';
+import { PacientePutDto } from './../../models/pacientePutDto';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from "moment";
-import { PacienteService } from './../../services/paciente.service';
-import { Router } from "@angular/router";
-import { EnderecoPostDto } from './../../models/enderecoPostDto';
-import { ResponsavelPostDto } from './../../models/responsavelPostDto';
-import { BsModalRef } from "ngx-bootstrap/modal";
-import { Paciente_PacotePostDto } from './../../models/paciente_pacotePostDto';
 
 @Component({
-  selector: "app-cadastro-paciente",
-  templateUrl: "./cadastro-paciente.component.html",
-  styleUrls: [],
+  selector: 'app-editar-paciente',
+  templateUrl: './editar-paciente.component.html',
+  styleUrls: []
 })
-export class CadastroPacienteComponent implements OnInit {
+export class EditarPacienteComponent implements OnInit {
+
+  public pacienteId: number;
   pacienteForm!: FormGroup;
   pacoteForm!: FormGroup;
   atendimentoForm!: FormGroup;
   telefonePacienteForm!: FormGroup;
   telefoneResponsavelForm!: FormGroup;
   responsavelForm!: FormGroup;
-  public pacienteCadastro!: PacientePostDto;
+  public pacienteCadastro!: PacientePutDto;
   formResult: string = "";
   public listaPacotes!: Pacote[];
   public listaCuidadores!: Cuidador[];
@@ -52,11 +55,11 @@ export class CadastroPacienteComponent implements OnInit {
   public valorPlantaoCuidador: any;
   public salarioCuidador: any;
   listaTelefonePaciente!: Telefone[];
-  listaResponsavel!: ResponsavelPostDto[];
+  listaResponsavel!: ResponsavelPutDto[];
   listaTelefoneResponsavel!: Telefone[];
   listaPacotePaciente!: Paciente_Pacote[];
   listaAtendimentos!: Atendimento[];
-  listaPacotePacientePostDto!: Paciente_PacotePostDto[];
+  listaPacotePacientePutDto!: Paciente_PacotePutDto[];
   formModal: any;
 
   @Input() type!: "success";
@@ -71,8 +74,13 @@ export class CadastroPacienteComponent implements OnInit {
     private cuidadorService: CuidadorService,
     private turnoService: TurnoService,
     private router: Router,
-    private alertModalService: AlertModalService
-  ) {}
+    private alertModalService: AlertModalService,
+    private route: ActivatedRoute
+  ) {
+
+    let id = this.route.snapshot.paramMap.get("id");
+    this.pacienteId = id as any;
+  }
 
   ngOnInit(): void {
     this.createFormPaciente();
@@ -85,8 +93,37 @@ export class CadastroPacienteComponent implements OnInit {
     this.carregarPacotes();
     this.carregarCuidador();
     this.carregarTurno();
+    this.carregarPaciente();
   }
-
+  carregarPaciente() {
+    this.pacienteService.getById(this.pacienteId).subscribe(
+      (paciente: Paciente) => {
+        this.pacienteForm = this.fb.group({
+          nomePaciente: [paciente.nomePaciente, Validators.required],
+          endereco: [paciente.enderecosPaciente[0].logradouro, Validators.required],
+          bairro: [paciente.enderecosPaciente[0].bairro, Validators.required],
+          complemento: [paciente.enderecosPaciente[0].complemento],
+          numero: [paciente.enderecosPaciente[0].numero],
+          cep: [paciente.enderecosPaciente[0].cep],
+          dataNascimento: [this.formatarDataEditar(paciente.dataNascimento.toString()), Validators.required],
+          idade: [{ value:this.calcularIdade(this.formatarDataEditar(paciente.dataNascimento.toString())), disabled: true }],
+          dataInicio: [this.formatarDataEditar(paciente.dataInicio.toString()), Validators.required],
+          dataRenovacao: [paciente.dataRenovacao!= null? this.formatarDataEditar(paciente.dataRenovacao.toString()):''],
+          descricao: [paciente.descricaoPaciente, Validators.required],
+          observacao: [paciente.observacao],
+          particularidade: [paciente.particulariedade],
+          jornada: [paciente.jornada],
+        });        
+        this.listaTelefonePaciente = paciente.telefonesPaciente;
+        this.listaResponsavel = paciente.responsaveisPaciente;
+        this.montarPacotePacienteParaEditar(paciente.paciente_Pacotes);
+        this.listaAtendimentos = paciente.atendimentosPaciente;
+      },
+      (erro: any) => {
+        console.error(erro);
+      }
+    );
+  }
   carregarPacotes() {
     this.pacoteService.getAll().subscribe(
       (pacotes: Pacote[]) => {
@@ -190,7 +227,7 @@ export class CadastroPacienteComponent implements OnInit {
     this.listaPacotePaciente = [];
     this.listaTurnos = [];
     this.listaAtendimentos = [];
-    this.listaPacotePacientePostDto=[];
+    this.listaPacotePacientePutDto=[];
   }
   handleInput(e: any, nomeCampo: any) {
     if (e != undefined) {
@@ -210,6 +247,7 @@ export class CadastroPacienteComponent implements OnInit {
 
   calcularIdade(dataNascimento: string) {
     let date = "";
+     dataNascimento = dataNascimento.replace('-', '').replace('-', '')
     if (dataNascimento != undefined && dataNascimento.length === 8) {
       date = dataNascimento.replace(/(\d{2})?(\d{2})?(\d{4})/, "$3/$2/$1");
       const today = new Date();
@@ -316,7 +354,7 @@ export class CadastroPacienteComponent implements OnInit {
 
   adicionarResponsavel() {
     if (this.telefoneResponsavelForm.value.nomeResponsavel != "") {
-      let responsavel: ResponsavelPostDto = {
+      let responsavel: ResponsavelPutDto = {
         nomeResponsavel: this.responsavelForm.value.nomeResponsavel,
         telefonesResponsavel: this.listaTelefoneResponsavel,
       };
@@ -422,39 +460,37 @@ export class CadastroPacienteComponent implements OnInit {
 
   salvarPaciente() {
     if(this.ValidarCampos()){
-    let enderecoPacientePostDto: EnderecoPostDto = {
+    let enderecoPacientePutDto: EnderecoPutDto = {
       logradouro: this.pacienteForm.value.endereco,
       bairro: this.pacienteForm.value.bairro,
       numero: this.pacienteForm.value.numero,
       complemento: this.pacienteForm.value.complemento,
       cep: this.pacienteForm.value.cep,
     };
-    this.montarPacotePacinet();
-    let pacienteCadastro: PacientePostDto = {
+    this.montarPacotePaciente();    
+    let pacienteCadastro: PacientePutDto = {
+      pacienteId: this.pacienteId,
       nomePaciente: this.pacienteForm.value.nomePaciente,
-      dataNascimento: new Date(this.formatarData(this.dataNascimento)),
+      dataNascimento: this.dataNascimento  != undefined ? new Date(this.formatarData(this.dataNascimento)): new Date(this.formatarData(this.pacienteForm.value.dataNascimento)),
       dataInicio: new Date(this.formatarData(this.pacienteForm.value.dataInicio)),
       dataRenovacao: new Date(this.formatarData(this.pacienteForm.value.dataRenovacao)),
       descricaoPaciente: this.pacienteForm.value.descricao,
       observacao: this.pacienteForm.value.observacao,
       particulariedade: this.pacienteForm.value.particularidade,
       jornada: this.pacienteForm.value.jornada,
-      telefonesPacientePostDtos: this.listaTelefonePaciente,
-      enderecosPacientePostDtos: [enderecoPacientePostDto],
-      responsaveisPacientePostDtos: this.listaResponsavel,
-      paciente_PacotePostPostDtos: this.listaPacotePacientePostDto,
-      atendimentosPacientePostDtos: this.listaAtendimentos,
+      telefonesCuidadorPutDtos: this.listaTelefonePaciente,
+      enderecosPacientePutDtos: [enderecoPacientePutDto],
+      responsaveisPacientePutDtos: this.listaResponsavel,
+      paciente_PacotePutDtos: this.listaPacotePacientePutDto,
+      atendimentosPacientePutDtos: this.listaAtendimentos,
     };
-    this.pacienteService.Postpaciente(pacienteCadastro).subscribe(
-      (response) => {
-        if (response) {          
-          this.alertModalService.showAlertSuccess("Paciente cadastrado com sucesso");
-          setTimeout(() => {
-            
-            //this.router.navigate(["paciente"]);
-            document.location.reload();
-          });
-        }
+    this.pacienteService.PutPaciente(pacienteCadastro).subscribe(
+      (response) => {       
+        this.alertModalService.showAlertSuccess("Paciente modificado com sucesso");    
+        //this.router.navigate(["paciente"]);  
+          // setTimeout(() => {                               
+          //   document.location.reload();
+          // });
       },
       (erro) => {
         console.log(erro);
@@ -466,9 +502,9 @@ export class CadastroPacienteComponent implements OnInit {
     }
   }
 
-  montarPacotePacinet(){
+  montarPacotePaciente(){
     this.listaPacotePaciente.forEach(item => {
-      let pacotePostDto : Paciente_PacotePostDto = {
+      let pacotePutDto : Paciente_PacotePutDto = {
         pacoteId: item.pacoteId,
         pacoteMensal: item.valorPacote, //Pacote mensal
         valorPacote: item.valorPacote, //Valor do Pacote
@@ -482,17 +518,46 @@ export class CadastroPacienteComponent implements OnInit {
         valorAcrescimo: item.valorAcrescimo, //Acréscimo
         taxaAdminstrativa: item.taxaAdminstrativa, //Taxa Administrativa
       };
-      this.listaPacotePacientePostDto.push(pacotePostDto);
+      this.listaPacotePacientePutDto.push(pacotePutDto);
    })
   }
 
-  formatarData(dataAnti: any) {
-    return moment(dataAnti.substring(4, 8) + "-" + dataAnti.substring(2, 4) + "-" + dataAnti.substring(0, 2)).format("DD-MMM-YYYY");
+  montarPacotePacienteParaEditar(pacientesBanco : Paciente_Pacote[]){
+    
+    pacientesBanco.forEach(item => {
+      let paciente_Pacote: Paciente_Pacote = {
+        pacinete_pacoteId: 0,
+        pacinteId: 0,
+        pacoteId:item.pacoteId,
+        descricaoPacoteMensal: item.descricaoPacoteMensal,
+        pacoteMensal: item.valorPacote, //Pacote mensal
+        valorPacote: item.valorPacote, //Valor do Pacote
+        valorPlantaoPacote: Number(item.valorPlantaoPacote),
+        diaPlantao: Number(item.diaPlantao), //Dia/Pacote Mensal
+        salarioCuidador: Number(item.salarioCuidador), //Salario cuidador
+        salarioDiaCuidador: Number(item.salarioDiaCuidador), //Dia/Cuidador
+        valorPlantaoCuidador: Number(item.valorPlantaoCuidador), //Valor/Cuidador
+        observacao: item.observacao, // Observação
+        valorDesconto: item.valorDesconto != null ?this.pacoteForm.value.valorDesconto:null, //Desconto
+        valorAcrescimo: item.valorAcrescimo!= null ?this.pacoteForm.value.valorAcrescimo:null, //Acréscimo
+        taxaAdminstrativa: item.taxaAdminstrativa, //Taxa Administrativa
+        ativo: true,
+      };
+      this.listaPacotePaciente.push(paciente_Pacote);
+   })
+   
   }
 
+  formatarData(dataAnti: any) {
+    dataAnti = dataAnti.replace('-', '').replace('-', '')
+    return moment(dataAnti.substring(4, 8) + "-" + dataAnti.substring(2, 4) + "-" + dataAnti.substring(0, 2)).format("DD-MMM-YYYY");
+  }
+formatarDataEditar(data:string){
+ return moment( data.substring(0, 4) + "-" + data.substring(5, 7) + "-" + data.substring(8, 10) ).format("DD-MM-YYYY")
+}
   handleError() {
     this.alertModalService.showAlertSuccess("");
-  }
+    }
 
  public ValidarCampos() {    
     const nomePaciente = this.obterValorDoCampo('nomePaciente');

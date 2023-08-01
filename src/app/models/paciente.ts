@@ -1,11 +1,12 @@
 import { Atendimento } from "./atendimento";
 import { Endereco } from "./endereco";
 import { Paciente_Pacote } from "./paciente_pacote";
+import { Responsavel } from "./responsavel";
 import { Telefone } from "./telefone";
 
 export interface Paciente {
   pacienteId: number;
-  nomePacienteId: string;
+  nomePaciente: string;
   dataNascimento: Date;
   dataInicio: Date;
   dataRenovacao: Date;
@@ -14,8 +15,9 @@ export interface Paciente {
   particulariedade: string;
   jornada: string;
   ativo: boolean;
-  enderecoPacientes: Endereco [];
-  pacientePacotes:Paciente_Pacote[];
-  atendimentos:Atendimento[];
+  enderecosPaciente: Endereco [];
+  paciente_Pacotes:Paciente_Pacote[];
+  atendimentosPaciente:Atendimento[];
   telefonesPaciente:Telefone[];
+  responsaveisPaciente:Responsavel[];
 }

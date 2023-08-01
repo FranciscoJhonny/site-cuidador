@@ -5,82 +5,34 @@
       <div class="col-sm-12 col-xl-12">
         <div class="bg-light rounded h-100 p-4">
           <h4 class="mb-3">Dados do Cuidador</h4>
-          <form
-            class="row g-3 needs-validation"
-            [formGroup]="cuidadorForm"
-            novalidate
-          >
+          <form class="row g-3 needs-validation" [formGroup]="cuidadorForm" novalidate >
             <div class="col-md-10">
-              <label for="nomeCuidador" class="form-label"
-                >Nome do Cuidador</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="nomeCuidador"
-                placeholder="Nome (obrigatório)"
-                formControlName="nomeCuidador"
-                [(ngModel)]="nomeCuidador"
-                (ngModelChange)="handleInput($event)"
-                [ngClass]="{
-                  'is-invalid':
-                    cuidadorForm.get('nomeCuidador')!.errors &&
-                    (cuidadorForm.get('nomeCuidador')!.dirty ||
-                      cuidadorForm.get('nomeCuidador')!.touched)
-                }"
-              />
-              <span
-                class="text-danger"
-                *ngIf="
-                  cuidadorForm.get('nomeCuidador')?.errors &&
-                  (cuidadorForm.get('nomeCuidador')?.dirty ||
-                    cuidadorForm.get('nomeCuidador')?.touched)
-                "
-              >
-                Nome do cuidador é obrigatório</span
-              >
+              <label for="nomeCuidador" class="form-label">Nome do Cuidador</label>
+              <input type="text" class="form-control" id="nomeCuidador" placeholder="Nome (obrigatório)" formControlName="nomeCuidador"
+                [(ngModel)]="nomeCuidador" (ngModelChange)="handleInput($event)" [ngClass]="{'is-invalid': cuidadorForm.get('nomeCuidador')!.errors &&
+                    (cuidadorForm.get('nomeCuidador')!.dirty || cuidadorForm.get('nomeCuidador')!.touched)}"/>
+              <span  class="text-danger" *ngIf=" cuidadorForm.get('nomeCuidador')?.errors && (cuidadorForm.get('nomeCuidador')?.dirty ||
+                    cuidadorForm.get('nomeCuidador')?.touched) "> Nome do cuidador é obrigatório</span>
             </div>
             <div class="col-md-2">
               <label for="categoria" class="form-label">Categoria</label>
-              <select
-                class="form-select"
-                id="categoriaId"
-                formControlName="categoriaId"
-                [ngClass]="{
-                  'is-invalid':
-                    cuidadorForm.get('categoriaId')!.errors &&
-                    (cuidadorForm.get('categoriaId')!.dirty ||
-                      cuidadorForm.get('categoriaId')!.touched)
-                }"
-              >
+              <select class="form-select" id="categoriaId" formControlName="categoriaId" [ngClass]="{'is-invalid': cuidadorForm.get('categoriaId')!.errors &&
+                    (cuidadorForm.get('categoriaId')!.dirty || cuidadorForm.get('categoriaId')!.touched) }">
                 <option value="">Selecione</option>
                 <option value="1">AV</option>
                 <option value="2">MI</option>
                 <option value="3">MO</option>
               </select>
-              <span
-                class="text-danger"
-                *ngIf="
-                  cuidadorForm.get('categoria')?.errors &&
-                  (cuidadorForm.get('categoria')?.dirty ||
-                    cuidadorForm.get('categoria')?.touched)
-                "
-                >Categoria obrigatório</span
-              >
+              <span class="text-danger" *ngIf=" cuidadorForm.get('categoria')?.errors && (cuidadorForm.get('categoria')?.dirty ||
+              cuidadorForm.get('categoria')?.touched)">Categoria obrigatório</span>
             </div>
           </form>
           <hr class="my-4" />
           <div class="col-12">
             <form [formGroup]="maskForm" class="row g-3">
               <div class="col-md-2">
-                <label for="tipotelefone01" class="form-label"
-                  >Tipo Telefone</label
-                >
-                <select
-                  class="form-select"
-                  id="tipotelefone01"
-                  formControlName="tipotelefone01"
-                >
+                <label for="tipotelefone01" class="form-label">Tipo Telefone</label>
+                <select class="form-select" id="tipotelefone01" formControlName="tipotelefone01">
                   <option value="">Selecione</option>
                   <option value="1">Residencial</option>
                   <option value="2">Celular</option>
@@ -90,23 +42,11 @@
               <div class="col-md-4">
                 <label for="telefone" class="form-label">Telefone</label>
                 <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="telefone01"
-                    name="telefone01"
-                    placeholder="(xx) xxxxx-xxxx"
-                    maxlength="15"
-                    (keyup)="phoneMask($event)"
-                    appOnlyNumbers
-                  />
+                  <input  type="text" class="form-control" formControlName="telefone01" name="telefone01" placeholder="Telefone (obrigatório) " maxlength="15"
+                    (keyup)="phoneMask($event)" appOnlyNumbers />
                   &nbsp;&nbsp;
                   <div class="input-group-append">
-                    <button
-                      class="btn btn-primary"
-                      type="button"
-                      (click)="adicionarTelefone()"
-                    >
+                    <button  class="btn btn-primary" type="button" (click)="adicionarTelefone()">
                       Adicionar telefone
                     </button>
                   </div>
@@ -154,17 +94,10 @@
           <hr class="my-4" />
           <div class="col-12 d-flex gap-2">
             <button
-              class="btn btn-sm btn-success rounded-pill px-3"
-              type="submit"
-              (click)="salvarCuidador()"
-              [disabled]="!(cuidadorForm.valid && listaTelefone.length > 0)"
-            >
+              class="btn btn-success " type="submit" (click)="salvarCuidador()" [disabled]="!(cuidadorForm.valid && listaTelefone.length > 0)">
               Salvar
             </button>
-            <button
-              class="btn btn-sm btn-primary rounded-pill px-3"
-              (click)="voltar()"
-            >
+            <button class="btn btn-primary"  (click)="voltar()">
               Voltar
             </button>
           </div>

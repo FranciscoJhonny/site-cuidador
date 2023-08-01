@@ -8,12 +8,13 @@ import {
 import { Cuidador } from "../../models/cuidador";
 import { ActivatedRoute, Router } from "@angular/router";
 import { CuidadorService } from "../../services/cuidador.service";
-import { Telefone } from "src/app/models/telefone";
+import { Telefone } from '../../models/telefone';
+
 
 @Component({
   selector: "app-editar-cuidado",
   templateUrl: "./editar-cuidado.component.html",
-  styleUrls: ["./editar-cuidado.component.css"],
+  styleUrls: [],
 })
 export class EditarCuidadoComponent implements OnInit {
   cuidadorForm!: FormGroup;

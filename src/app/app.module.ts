@@ -18,11 +18,14 @@ import { CadastroCuidadorComponent } from "./cuidador/cadastro-cuidador/cadastro
 import { ListaCuidadorComponent } from "./cuidador/lista-cuidador/lista-cuidador.component";
 import { DetalheCuidadorComponent } from "./cuidador/detalhe-cuidador/detalhe-cuidador.component";
 import { SharedModule } from "./shared/shared.module";
-import { EditarCuidadoComponent } from "./cuidador/editar-cuidado/editar-cuidado.component";
+import { EditarCuidadoComponent } from "./cuidador/editar-cuidador/editar-cuidado.component";
 import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro-paciente.component";
 import { CurrencyMaskConfig, CurrencyMaskModule, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask';
 import { AlertModalComponent } from "./shared/alert-modal/alert-modal.component";
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ListaPacienteComponent } from "./paciente/lista-paciente/lista-paciente.component";
+import { EditarPacienteComponent } from "./paciente/editar-paciente/editar-paciente.component";
+import { DetalhePacienteComponent } from "./paciente/detalhe-paciente/detalhe-paciente.component";
 
 
 
@@ -46,7 +49,10 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     DetalheCuidadorComponent,
     EditarCuidadoComponent,
     CadastroPacienteComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    ListaPacienteComponent,
+    EditarPacienteComponent,
+    DetalhePacienteComponent
     
   ],
   imports: [

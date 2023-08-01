@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="container-fluid pt-4 px-4">
+     <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+           <h5 class="me-auto mb-0">Paciente</h5>
+           <button type="button" class="btn btn-primary"
+              (click)="cadastrarPaciente()">
+              Cadastrar
+           </button>
+           <hr />
+        </div>
+        <div class="table-responsive">
+           <table
+              class="table text-start align-middle table-bordered table-hover mb-0"
+              >
+              <thead>
+                 <tr class="text-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Opções</th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let paciente of pacientes">
+                    <th scope="row">{{ paciente.pacienteId }}</th>
+                    <td>{{ paciente.nomePaciente }}</td>
+                    <td>
+                       <span *ngFor="let a of paciente.telefonesPaciente">
+                        <span>{{ a.numeroTelefone | phone }}</span>
+                      </span>
+                    </td>
+                    <td class="justify-content-center d-flex gap-2">
+                       <button class="btn btn-sm btn-primary rounded-pill px-3" href="" (click)="detalhePaciente(paciente)">
+                        Detalhe
+                       </button>
+                       <button  (click)="editarPaciente(paciente)" class="btn btn-sm btn-warning rounded-pill px-3" href="">
+                        Editar
+                       </button>
+                    </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+     </div>
+  </div>
+</div>

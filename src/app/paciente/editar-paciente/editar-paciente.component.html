@@ -1,0 +1,497 @@
+<div class="container">
+  <!-- Form Start -->
+  <div class="container-fluid pt-4 px-4">
+     <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+           <div class="bg-light rounded h-100 p-4">
+              <h4 class="mb-3">Dados do Paciente</h4>
+              <form class="row g-3 needs-validation"  [formGroup]="pacienteForm" novalidate>
+                 <div class="col-md-4">
+                    <label for="nomePaciente" class="form-label">Paciente</label>
+                    <input type="text" class="form-control" id="nomePaciente"  placeholder="Nome (obrigatório)" formControlName="nomePaciente" [(ngModel)]="nomePaciente"
+                    (ngModelChange)="handleInput($event,'nomePaciente')"   [ngClass]="{'is-invalid': pacienteForm.get('nomePaciente')!.errors &&
+                    (pacienteForm.get('nomePaciente')!.dirty || pacienteForm.get('nomePaciente')!.touched)}"  />             
+                    <div class="invalid-feedback">Nome do paciente é obrigatório</div>
+                 </div>
+                 <div class="col-md-4">
+                    <label for="endereco" class="form-label">Endereço</label>
+                    <input type="text" class="form-control" id="endereco"  placeholder="Endereço (obrigatório)" formControlName="endereco" [(ngModel)]="endereco"
+                    (ngModelChange)="handleInput($event,'endereco')"   [ngClass]="{'is-invalid': pacienteForm.get('endereco')!.errors &&
+                    (pacienteForm.get('endereco')!.dirty || pacienteForm.get('endereco')!.touched)}"  />
+                    <div class="invalid-feedback">Endereço é obrigatório</div>
+                 </div>
+                 <div class="col-md-4">
+                    <label for="bairro" class="form-label">Bairro</label>
+                    <input type="text" class="form-control" id="bairro"  placeholder="Bairro (obrigatório)" formControlName="bairro" [(ngModel)]="bairro"
+                    (ngModelChange)="handleInput($event,'bairro')"   [ngClass]="{'is-invalid': pacienteForm.get('bairro')!.errors &&
+                    (pacienteForm.get('bairro')!.dirty || pacienteForm.get('bairro')!.touched)}"  />
+                    <div class="invalid-feedback">Bairro é obrigatório</div>
+                 </div>
+                 <div class="col-md-4">
+                    <label for="complemento" class="form-label">Complemento</label>
+                    <input type="text" class="form-control" id="complemento"  formControlName="complemento" />                     
+                 </div>
+                 <div class="col-md-2">
+                    <label for="numero" class="form-label">Numero</label>
+                    <input type="text" class="form-control" id="numero"  formControlName="numero"  />
+                 </div>
+                 <div class="col-md-2">
+                    <label for="cep" class="form-label">CEP</label>
+                    <input type="text" class="form-control" id="cep" mask="00000-000" formControlName="cep" placeholder="00000-000" />
+                 </div>
+                 <div class="col-md-2">
+                    <label for="dataNascimento" class="form-label">Data Nascimento</label>
+                    <input type="text" class="form-control"id="dataNascimento" mask="00/00/0000" placeholder="00/00/0000"
+                    formControlName="dataNascimento"   [(ngModel)]="dataNascimento" [ngClass]="{'is-invalid': pacienteForm.get('dataNascimento')!.errors &&
+                    (pacienteForm.get('dataNascimento')!.dirty || pacienteForm.get('dataNascimento')!.touched)}"  (blur)="calcularIdade(dataNascimento)"/>
+                    <div class="invalid-feedback">Data Nascimento é obrigatório</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="idade" class="form-label">Idade</label>
+                    <input type="text" class="form-control" id="idade" formControlName="idade"   formControlName="idade"  [(ngModel)]="idade" />
+                 </div>
+                 <div class="col-md-2">
+                    <label for="dataInicio" class="form-label">Data Inicio</label>
+                    <input type="text"
+                       class="form-control" id="dataInicio" mask="00/00/0000" formControlName="dataInicio" placeholder="00/00/0000" 
+                       [(ngModel)]="dataInicio" [ngClass]="{'is-invalid': pacienteForm.get('dataInicio')!.errors &&
+                       (pacienteForm.get('dataInicio')!.dirty || pacienteForm.get('dataInicio')!.touched)}"/>
+                    <div class="invalid-feedback">Data inicio é obrigatório</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="dataRenovacao" class="form-label">Data Renovação</label >
+                    <input type="text" class="form-control" id="dataRenovacao"   mask="00/00/0000" placeholder="00/00/0000" formControlName="dataRenovacao" />                     
+                 </div>
+                 <div class="col-md-8">
+                    <label for="descricao" class="form-label">Descrição</label>
+                    <textarea class="form-control" id="descricao"style="height: 70px" formControlName="descricao"  [(ngModel)]="descricao" 
+                    [ngClass]="{'is-invalid': pacienteForm.get('descricao')!.errors && (pacienteForm.get('descricao')!.dirty || pacienteForm.get('descricao')!.touched)}" ></textarea>
+                    <div class="invalid-feedback">Descrição é obrigatório</div>
+                 </div>
+                 <div class="col-md-6">
+                    <label for="observacao" class="form-label">Observação</label>
+                    <textarea class="form-control" id="observacao" style="height: 70px" formControlName="observacao"></textarea>
+                 </div>
+                 <div class="col-md-6">
+                    <label for="particularidade" class="form-label">Particularidade</label>
+                    <textarea class="form-control"id="particularidade"style="height: 70px" formControlName="particularidade" ></textarea>
+                 </div>
+                 <div class="col-md-6"> <label for="jornada" class="form-label">Jornada</label>
+                    <textarea class="form-control"id="jornada"style="height: 70px" formControlName="jornada"></textarea></div>
+              </form>
+              <hr class="my-4" />
+              <div class="col-12">
+                 <form [formGroup]="telefonePacienteForm" class="row g-3">
+                    <div class="col-md-2">
+                       <label for="tipotelefone" class="form-label">Tipo Telefone</label>
+                       <select class="form-select" id="tipotelefone" formControlName="tipotelefone">
+                          <option value="">Selecione</option>
+                          <option value="1">Residencial</option>
+                          <option value="2">Celular</option>
+                          <option value="3">Fixo</option>
+                       </select>
+                    </div>
+                    <div class="col-md-4">
+                       <label for="telefone" class="form-label">Telefone</label>
+                       <div class="input-group">
+                          <input type="text" class="form-control" formControlName="telefone" name="telefone" placeholder="(00) 00000-0000"
+                             maxlength="15"(keyup)="phoneMask($event)" appOnlyNumbers/>
+                          &nbsp;&nbsp;
+                          <div class="input-group-append">
+                             <button class="btn btn-primary" type="button" (click)="adicionarTelefone()" >
+                             Adicionar Telefone
+                             </button>
+                          </div>
+                       </div>
+                    </div>
+                 </form>
+              </div>
+              <br>
+              <div class="table-responsive">
+                 <h5 class="mb-3">Telefones do Paciente</h5>
+                 <table class="table text-start align-middle table-bordered table-hover mb-0" >
+                    <thead>
+                       <tr class="text-dark">
+                          <th scope="col">Tipo Telefone</th>
+                          <th scope="col">Numero Telefone</th>
+                          <th scope="col">Opções</th>
+                       </tr>
+                    </thead>
+                    <tbody *ngIf="listaTelefonePaciente.length > 0">
+                       <tr *ngFor="let telefone of listaTelefonePaciente">
+                          <th scope="row">{{ telefone.descricaoTipoTelefone }}</th>
+                          <td>
+                             <span>{{ telefone.numeroTelefone | phone }}</span>
+                          </td>
+                          <td class="justify-content-center d-flex gap-2">
+                             <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="excluirTelefone(telefone)">
+                             Excluir
+                             </button>
+                          </td>
+                       </tr>
+                    </tbody>
+                    <tbody *ngIf="listaTelefonePaciente.length === 0">
+                       <tr>
+                          <th scope="row" colspan="3">Nenhum telefone cadastrado</th>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+              <hr class="my-4" />
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="container-fluid pt-4 px-4">
+     <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+           <h5 class="me-auto mb-0">Responsável</h5>
+           <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+           Adicionar responsável
+           </button>    
+           <hr />
+        </div>
+        <div class="table-responsive">
+           <table class="table text-start align-middle table-bordered table-hover mb-0" >
+              <thead>
+                 <tr class="text-dark">
+                    <th scope="col">Nome</th>
+                    <th scope="col">Numero Telefone</th>
+                    <th scope="col">Opções</th>
+                 </tr>
+              </thead>
+              <tbody *ngIf="listaResponsavel.length > 0">
+                 <tr *ngFor="let responsavel of listaResponsavel">
+                    <th scope="row">{{ responsavel.nomeResponsavel }}</th>
+                    <td>
+                       <span *ngFor="let a of responsavel.telefonesResponsavel">
+                       <span>{{ a.numeroTelefone | phone }}</span>
+                       </span>
+                    </td>
+                    <td class="justify-content-center d-flex gap-2">
+                       <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="excluirResponsavel(telefone)">
+                       Excluir
+                       </button>
+                    </td>
+                 </tr>
+              </tbody>
+              <tbody *ngIf="listaResponsavel.length === 0">
+                 <tr>
+                    <th scope="row" colspan="3">Nenhum telefone cadastrado</th>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+     </div>
+  </div>
+  <div class="container-fluid pt-4 px-4">
+     <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+           <div class="bg-light rounded h-100 p-4">
+              <h4 class="mb-3">Pacotes</h4>
+              <form class="row g-3 needs-validation"  [formGroup]="pacoteForm" novalidate>
+                 <div class="col-md-3">
+                    <label for="pacoteMensal" class="form-label">Pacote Mensal</label>
+                    <select   class="form-select" id="pacoteMensal" placeholder="Selecione" formControlName="pacoteMensal" (change)="obterValorPacote()">
+                       <option value="">Selecione</option>
+                       <option *ngFor="let p of listaPacotes" [value]="p.pacoteId">
+                       {{p.descricaoPacote}}
+                       </option>                      
+                    </select>
+                    <div class="invalid-feedback">Pacote Mensal</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="valorPacote" class="form-label">Valor do Pacote</label>
+                    <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote | currency:'BRL'"/>  
+                    <div class="invalid-feedback">Valor do pacote</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="diaPacoteMensal" class="form-label">Dia/Pacote Mensal</label>
+                    <input  type="text" class="form-control"  id="diaPacoteMensal" formControlName="diaPacoteMensal" (change)="obterValorPlantaoPacote()" />
+                    <div class="invalid-feedback">Dia/Plantão é obrigatório</div>
+                 </div>
+                 <div class="col-md-5">
+                    <label for="valorPlantaoPacote" class="form-label">Valor Plantão Pacote</label>
+                    <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote | currency:'BRL'"  />
+                    <div class="invalid-feedback">Valor plantão pacote é obrigatório</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="salarioCuidador" class="form-label">Salário Cuidador</label>
+                    <input type="text" class="form-control" id="salarioCuidador" currencyMask   formControlName="salarioCuidador"  />
+                    <div class="invalid-feedback">Salário cuidador é obrigatório</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="salarioDiaCuidador" class="form-label">Dia/Cuidador</label>
+                    <input type="text" class="form-control" id="salarioDiaCuidador" formControlName="salarioDiaCuidador" (change)="obterValorCuidador()" />
+                    <div class="invalid-feedback">Dia/Cuidador é obrigatório</div>
+                 </div>
+                 <div class="col-md-3">
+                    <label for="valorPlantaoCuidador" class="form-label">Valor/Cuidador</label>
+                    <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador | currency:'BRL'"/>
+                    <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
+                 </div>
+                 <div class="col-md-5">
+                    <label for="observacao" class="form-label">Observação</label>
+                    <textarea class="form-control" id="observacao" style="height: 30px"  [(ngModel)]="observacao"
+                    (ngModelChange)="handleInput($event,'observacao')" formControlName="observacao"></textarea>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="valorDesconto" class="form-label">Desconto</label>
+                    <input type="text"  class="form-control" id="valorDesconto" currencyMask formControlName="valorDesconto"/>                  
+                 </div>
+                 <div class="col-md-2">
+                    <label for="valorAcrescimo" class="form-label">Acréscimo</label>
+                    <input type="text"  class="form-control" id="valorAcrescimo" currencyMask formControlName="valorAcrescimo"/>                  
+                 </div>
+                 <div class="col-md-3">
+                    <label for="taxaAdminstrativa" class="form-label">Taxa Administrativa</label>
+                    <div class="input-group">
+                       <input type="text"  class="form-control" id="taxaAdminstrativa" currencyMask formControlName="taxaAdminstrativa" />
+                       &nbsp;&nbsp;
+                       <div class="input-group-append">
+                          <button class="btn btn-primary" type="button" (click)="adicionarPacote()" >
+                          Adicionar Pacote
+                          </button>
+                       </div>
+                    </div>
+                 </div>
+              </form>
+              <br>
+              <div class="table-responsive">
+                 <h5 class="mb-3">Pacotes do Paciente</h5>
+                 <table class="table text-start align-middle table-bordered table-hover mb-0" >
+                    <thead>
+                       <tr class="text-dark">
+                          <th scope="col">P. Mensal</th>
+                          <th scope="col">Valor P.</th>
+                          <th scope="col">Dia/P. Mensal</th>
+                          <th scope="col">Valor P. Pacote</th>
+                          <th scope="col">Salário Cuidador</th>
+                          <th scope="col">Dia/Cuidador</th>
+                          <th scope="col">Valor/Cuidador</th>
+                          <th scope="col">Observação</th>
+                          <th scope="col">Desc.</th>
+                          <th scope="col">Acr.</th>
+                          <th scope="col">Taxa Adm.</th>
+                          <th scope="col">Opções</th>
+                       </tr>
+                    </thead>
+                    <tbody *ngIf="listaPacotePaciente.length > 0">
+                       <tr *ngFor="let paciente_pacote of listaPacotePaciente">
+                          <th scope="row">{{ paciente_pacote.descricaoPacoteMensal }}</th>
+                          <td>{{paciente_pacote.valorPacote | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.diaPlantao}}</td>
+                          <td>{{paciente_pacote.valorPlantaoPacote | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.salarioCuidador | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.salarioDiaCuidador }}</td>
+                          <td>{{paciente_pacote.valorPlantaoCuidador | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.observacao}}</td>
+                          <td>{{paciente_pacote.valorDesconto | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.valorAcrescimo | currency:'BRL'}}</td>
+                          <td>{{paciente_pacote.taxaAdminstrativa | currency:'BRL'}}</td>
+                          <td class="justify-content-center gap-2">
+                             <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="excluirPacote(paciente_pacote)">
+                             Excluir
+                             </button>
+                          </td>
+                       </tr>
+                    </tbody>
+                    <tbody *ngIf="listaPacotePaciente.length === 0">
+                       <tr>
+                          <th scope="row" colspan="12">Nenhum pacote cadastrado</th>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="container-fluid pt-4 px-4">
+     <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+           <div class="bg-light rounded h-100 p-4">
+              <h4 class="mb-3">Atendimento</h4>
+              <form class="row g-3 needs-validation"  [formGroup]="atendimentoForm" novalidate>
+                 <div class="col-md-3">
+                    <label for="cuidador" class="form-label">Cuidador</label>
+                    <select   class="form-select" id="cuidador" placeholder="Selecione" formControlName="cuidador">
+                       <option value="">Selecione</option>
+                       <option *ngFor="let c of listaCuidadores" [value]="c.cuidadorId">
+                       {{c.nomeCuidador}}
+                       </option>                      
+                    </select>
+                    <div class="invalid-feedback">Pacote Mensal</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="Turno" class="form-label">Turno</label>
+                    <select   class="form-select" id="turno" placeholder="Selecione" formControlName="turno">
+                       <option value="">Selecione</option>
+                       <option *ngFor="let t of listaTurnos" [value]="t.turnoId">
+                       {{t.descricaoTurno}}
+                       </option>                      
+                    </select>
+                    <div class="invalid-feedback">Pacote Mensal</div>
+                 </div>
+                 <div class="col-md-2">
+                    <label for="cor" class="form-label">Cor</label>
+                    <select   class="form-select" id="cor" placeholder="Selecione" formControlName="cor">
+                       <option value="">Selecione</option>
+                       <option value="Verde">Verde</option>
+                       <option value="Amarelo">Amarelo</option>
+                    </select>
+                    <div class="invalid-feedback">Pacote Mensal</div>
+                 </div>
+                 <div class="col-md-4">
+                    <label for="dataInicio" class="form-label">Data Início</label>
+                    <div class="input-group">
+                       <input  type="text" class="form-control"  id="dataInicio"  mask="00/00/0000" formControlName="dataInicio" placeholder="00/00/0000" />
+                       &nbsp;&nbsp;
+                       <div class="input-group-append">
+                          <button class="btn btn-primary" type="button" (click)="adicionarAtendimento()" >
+                          Adicionar Pacote
+                          </button>
+                       </div>
+                    </div>
+                 </div>
+              </form>
+              <br>
+              <div class="table-responsive">
+                 <h5 class="mb-3">Atendimento do Paciente</h5>
+                 <table class="table text-start align-middle table-bordered table-hover mb-0" >
+                    <thead>
+                       <tr class="text-dark">
+                          <th scope="col">Cuidador</th>
+                          <th scope="col">Turno</th>
+                          <th scope="col">Cor</th>
+                          <th scope="col">Data Início</th>
+                          <th scope="col">Opções</th>
+                       </tr>
+                    </thead>
+                    <tbody *ngIf="listaAtendimentos.length > 0">
+                       <tr *ngFor="let atendimento of listaAtendimentos">
+                          <th scope="row">{{ atendimento.nomeCuidador }}</th>
+                          <td>{{atendimento.turno}}</td>
+                          <td>{{atendimento.profissionalCor}}</td>
+                          <td>{{atendimento.dataInicio | date: 'dd/MM/yyyy'}}</td>
+                          <td class="justify-content-center gap-2">
+                             <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="excluirAtendimento(atendimento)">
+                             Excluir
+                             </button>
+                          </td>
+                       </tr>
+                    </tbody>
+                    <tbody *ngIf="listaAtendimentos.length === 0">
+                       <tr>
+                          <th scope="row" colspan="12">Nenhum atendimento cadastrado</th>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="container-fluid pt-4 px-4">
+     <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+           <div class="bg-light rounded h-100 p-4">
+              <button class="btn btn-success" type="button" (click)="salvarPaciente()">
+              Salvar Paciente
+              </button> 
+              &nbsp;
+              <button class="btn btn-primary" (click)="voltar()">
+              Voltar
+            </button>
+           </div>
+        </div>
+     </div>
+  </div>
+</div>
+<!-- Modal responsável -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+     <div class="modal-content">
+        <div class="modal-header">
+           <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Responsável</h1>
+           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           <form [formGroup]="responsavelForm">
+              <div class="mb-3">
+                 <label for="nomeResponsavel" class="form-label">Responsável</label >
+                 <input type="text"class="form-control" id="nomeResponsavel" formControlName="nomeResponsavel"  [(ngModel)]="nomeResponsavel"
+                 (ngModelChange)="handleInput($event,'nomeResponsavel')"/>
+              </div>
+           </form>
+           <form [formGroup]="telefoneResponsavelForm">
+              <div class="row">
+                 <div class="col-sm-12">
+                    <div class="row">
+                       <div class="col-8 col-sm-6">
+                          <label for="tipotelefoneresponsavel" class="form-label">Tipo Telefone</label>
+                          <select class="form-select" id="tipotelefoneresponsavel" formControlName="tipotelefoneresponsavel">
+                             <option value="">Selecione</option>
+                             <option value="1">Residencial</option>
+                             <option value="2">Celular</option>
+                             <option value="3">Fixo</option>
+                          </select>
+                       </div>
+                       <div class="col-4 col-sm-6">
+                          <label for="telefoneresponsavel" class="form-label">Telefone</label >
+                          <input type="text"class="form-control" formControlName="telefoneresponsavel" name="telefoneresponsavel" placeholder="(00) 00000-0000"
+                             maxlength="15"(keyup)="phoneMask($event)" appOnlyNumbers>
+                       </div>
+                    </div>
+                 </div>
+              </div>
+              <div class="row">
+                 <div class="col-4 col-sm-6">
+                    <br>
+                    <button class="btn btn-primary" type="button" (click)="adicionarTelefoneResponsavel()" >
+                    Adicionar telefone
+                    </button>
+                 </div>
+              </div>
+           </form>
+           <hr class="my-4" />
+           <div class="table-responsive">
+              <h5 class="mb-3">Telefones do Responsável</h5>
+              <table class="table text-start align-middle table-bordered table-hover mb-0" >
+                 <thead>
+                    <tr class="text-dark">
+                       <th scope="col">Tipo Telefone</th>
+                       <th scope="col">Numero Telefone</th>
+                       <th scope="col">Opções</th>
+                    </tr>
+                 </thead>
+                 <tbody *ngIf="listaTelefoneResponsavel.length > 0">
+                    <tr *ngFor="let telefone of listaTelefoneResponsavel">
+                       <th scope="row">{{ telefone.descricaoTipoTelefone }}</th>
+                       <td>
+                          <span>{{ telefone.numeroTelefone | phone }}</span>
+                       </td>
+                       <td class="justify-content-center d-flex gap-2">
+                          <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="excluirTelefoneResponsavel(telefone)">
+                          Excluir
+                          </button>
+                       </td>
+                    </tr>
+                 </tbody>
+                 <tbody *ngIf="listaTelefoneResponsavel.length === 0">
+                    <tr>
+                       <th scope="row" colspan="3">Nenhum telefone cadastrado</th>
+                    </tr>
+                 </tbody>
+              </table>
+           </div>
+        </div>
+        <div class="modal-footer">
+           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+           <button class="btn btn-primary" type="button" data-bs-dismiss="modal" (click)="adicionarResponsavel()" >
+           Adicionar Responsável
+           </button> 
+        </div>
+     </div>
+  </div>
+</div>
