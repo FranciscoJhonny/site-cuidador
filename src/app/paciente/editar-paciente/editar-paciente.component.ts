@@ -447,7 +447,7 @@ export class EditarPacienteComponent implements OnInit {
         turnoId: turnoId,
         turno: turno,
         profissionalCor: this.atendimentoForm.value.cor,
-        dataInicio: new Date(formattedDate),
+        dataInicio: new Date(formattedDate)
       };
       this.listaAtendimentos.push(atendimento);
       this.createFormTelefoneResponsavel();

@@ -60,6 +60,4 @@ export class ListaCuidadorComponent implements OnInit {
   cuidadorDetalhe(cuidador: Cuidador) {
     this.router.navigateByUrl(`cuidador-detalhe/${cuidador.cuidadorId}`);
   }
-
-  
 }

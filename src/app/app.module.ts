@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
@@ -26,8 +26,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { ListaPacienteComponent } from "./paciente/lista-paciente/lista-paciente.component";
 import { EditarPacienteComponent } from "./paciente/editar-paciente/editar-paciente.component";
 import { DetalhePacienteComponent } from "./paciente/detalhe-paciente/detalhe-paciente.component";
+import { ListaMapaComponent } from "./mapa/lista-mapa/lista-mapa.component";
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
 
+registerLocaleData(ptBr);
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: "right",
@@ -52,7 +56,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AlertModalComponent,
     ListaPacienteComponent,
     EditarPacienteComponent,
-    DetalhePacienteComponent
+    DetalhePacienteComponent,
+    ListaMapaComponent
     
   ],
   imports: [
@@ -70,6 +75,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   providers: [
     { provide: APP_BASE_HREF, useValue: "/" },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
+    { provide: LOCALE_ID, useValue: 'pt' },
     provideNgxMask()
   ],
   bootstrap: [AppComponent],

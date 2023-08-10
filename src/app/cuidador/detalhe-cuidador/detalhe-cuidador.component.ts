@@ -56,7 +56,7 @@ export class DetalheCuidadorComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(["cuidador"]);
+    this.router.navigate(["site/cuidador"]);
   }
   
 }

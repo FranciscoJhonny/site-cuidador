@@ -7,6 +7,7 @@ import { Telefone } from "./telefone";
 export interface Paciente {
   pacienteId: number;
   nomePaciente: string;
+  idade: number;
   dataNascimento: Date;
   dataInicio: Date;
   dataRenovacao: Date;
@@ -15,9 +16,9 @@ export interface Paciente {
   particulariedade: string;
   jornada: string;
   ativo: boolean;
-  enderecosPaciente: Endereco [];
-  paciente_Pacotes:Paciente_Pacote[];
-  atendimentosPaciente:Atendimento[];
-  telefonesPaciente:Telefone[];
-  responsaveisPaciente:Responsavel[];
+  enderecosPaciente: Endereco[];
+  paciente_Pacotes: Paciente_Pacote[];
+  atendimentosPaciente: Atendimento[];
+  telefonesPaciente: Telefone[];
+  responsaveisPaciente: Responsavel[];
 }

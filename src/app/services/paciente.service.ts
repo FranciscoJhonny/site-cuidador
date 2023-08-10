@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { PacientePostDto } from '../models/pacientePostDto';
 import { PacientePutDto } from '../models/pacientePutDto';
+import { PacienteDto } from '../models/pacienteDto';
 
 
 @Injectable({
@@ -17,6 +18,10 @@ export class PacienteService {
 constructor(private http: HttpClient) { }
 getAll(): Observable<Paciente[]> { 
   return this.http.get<Paciente[]>(`${this.baseUrl}/get-lista-paciente`);
+}
+
+getAllMapa(): Observable<PacienteDto[]> { 
+  return this.http.get<PacienteDto[]>(`${this.baseUrl}/get-lista-paciente`);
 }
 
 getById(id: number): Observable<Paciente> {

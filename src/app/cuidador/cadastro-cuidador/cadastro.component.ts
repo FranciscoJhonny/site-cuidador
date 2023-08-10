@@ -1,3 +1,4 @@
+import { AlertModalService } from './../../shared/alert-modal.service';
 import { Telefone } from './../../models/telefone';
 import { CuidadorService } from "../../services/cuidador.service";
 import { Cuidador } from "../../models/cuidador";
@@ -23,7 +24,8 @@ export class CadastroCuidadorComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private cuidadorService: CuidadorService
+    private cuidadorService: CuidadorService,
+    private alertModalService: AlertModalService
   ) {}
 
   ngOnInit(): void {
@@ -48,7 +50,8 @@ export class CadastroCuidadorComponent implements OnInit {
       this.cuidadorService.PostCuidador(this.cuidador).subscribe(
         (response) => {
           if (response) {
-            this.router.navigate(["cuidador"]);
+            //this.router.navigate(["cuidador"]);
+            this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
             setTimeout(() => {
               document.location.reload();
             });

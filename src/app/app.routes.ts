@@ -12,6 +12,7 @@ import { CadastroPacienteComponent } from "./paciente/cadastro-paciente/cadastro
 import { ListaPacienteComponent } from "./paciente/lista-paciente/lista-paciente.component";
 import { EditarPacienteComponent } from "./paciente/editar-paciente/editar-paciente.component";
 import { DetalhePacienteComponent } from "./paciente/detalhe-paciente/detalhe-paciente.component";
+import { ListaMapaComponent } from "./mapa/lista-mapa/lista-mapa.component";
 export const rootRouterConfig: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
   { path: "home", component: HomeComponent },
@@ -23,7 +24,8 @@ export const rootRouterConfig: Routes = [
   { path: 'paciente-cadastro', component: CadastroPacienteComponent },  
   { path: 'paciente-editar/:id', component: EditarPacienteComponent },  
   { path: 'paciente-detalhe/:id', component: DetalhePacienteComponent }, 
-  { path: "contato", component: ContatoComponent },
+  { path: "mapa", component: ListaMapaComponent },
+  { path: "contato", component: ContatoComponent },  
   { path: "sobre", component: SobreComponent },
   { path: "**", component: NotFoundComponent },
 ];

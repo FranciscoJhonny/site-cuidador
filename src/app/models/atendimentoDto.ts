@@ -1,12 +1,14 @@
-import { Telefone } from "./telefone";
+import { TelefoneDto } from "./telefoneDto";
 
-export interface Atendimento {
+export interface AtendimentoDto {
   atendimentoId: number;
   pacienteId: number;
   cuidadorId: number;
   nomeCuidador: string;
+  descricaoCategoria: string;
   turnoId: number;
   turno: string;
   profissionalCor: string;
   dataInicio: Date;
+  telefonesCuidador: TelefoneDto[];
 }

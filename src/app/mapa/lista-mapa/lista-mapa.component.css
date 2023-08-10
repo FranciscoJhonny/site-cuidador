@@ -1,0 +1,36 @@
+.titulo-paciente{
+    background-color: #9ff6fc;
+}
+.letra{
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+}
+.letra-normal {
+    font-size: 12px;
+    color: black;    
+}
+.letra-centralizada {
+    text-align: center
+}
+.letra-medio{
+    font-size: 9px;
+    color: black;
+    font-weight: bold;
+}
+.borda-grid{
+    /* border: solid 1px blue;         */
+    /* margin: 0px 0px 1px 0px;   */
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    /* rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) ;     */
+}
+.verde-cuidador{
+    background-color: #0bac0b;
+}
+.amarelo-cuidador{
+    background-color: #c2db92;
+}
+.descricao-paciente{
+    color: rgb(252, 8, 8);
+    font-weight: bold;
+}

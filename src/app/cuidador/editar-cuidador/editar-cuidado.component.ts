@@ -1,3 +1,4 @@
+import { AlertModalService } from './../../shared/alert-modal.service';
 import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
@@ -32,7 +33,8 @@ export class EditarCuidadoComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private cuidadorService: CuidadorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertModalService: AlertModalService
   ) {
     let id = this.route.snapshot.paramMap.get("id");
     this.cuidadorId = id as any;
@@ -99,7 +101,8 @@ export class EditarCuidadoComponent implements OnInit {
       this.cuidadorService.PutCuidador(dados).subscribe(
         async (response) => {
           this.cuidadorForm.reset();
-          this.router.navigate(["cuidador"]);
+          //this.router.navigate(["cuidador"]);
+          this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
           setTimeout(() => {
             document.location.reload();
           });
