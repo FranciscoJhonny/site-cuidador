@@ -1,3 +1,4 @@
+import { AlertModalService } from './../../shared/alert-modal.service';
 import { Component, OnInit } from "@angular/core";
 import { Cuidador } from "../../models/cuidador";
 import { CuidadorService } from "../../services/cuidador.service";
@@ -6,8 +7,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Telefone } from './../../models/telefone';
 @Component({
   selector: "app-listacuidador",
-  templateUrl: "./lista-cuidador.component.html",
-  styles: [],
+  templateUrl: "./lista-cuidador.component.html",  
+  styleUrls: ['./lista-cuidador.component.css']
 })
 export class ListaCuidadorComponent implements OnInit {
   public cuidadores!: Cuidador[];
@@ -16,20 +17,25 @@ export class ListaCuidadorComponent implements OnInit {
   listaTelefone!: Telefone[];
   public cuidadorForm!: FormGroup;
   formResult: string = "";
+  haMaisCuidador: boolean = true;
+  paginaAtual: number = 1;
+ public  filtro: any;
+ public  filtroNome: any;
+  favorito: boolean = false;
+  public nomeCuidador: any;
+  
 
   constructor(
     private cuidadorService: CuidadorService,
+    private alertModalService: AlertModalService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.listaTelefone = [];
     this.cuidadorForm = this.fb.group({
-      nomeCuidador: ["", Validators.required],
-      categoriaId: ["", Validators.required],
-      tipotelefone01: ["", Validators.required],
-      telefone01: ["", Validators.required],
+      filtro: ["0", Validators.required],
+      filtroNome: ["", Validators.required],
     });
     this.carregarCuidadores();
   }
@@ -59,5 +65,23 @@ export class ListaCuidadorComponent implements OnInit {
   }
   cuidadorDetalhe(cuidador: Cuidador) {
     this.router.navigateByUrl(`cuidador-detalhe/${cuidador.cuidadorId}`);
+  }
+ cuidadorExcluir (cuidador: Cuidador){
+  this.cuidadorService.deleteCuidador(cuidador.cuidadorId).subscribe(
+    (response) => {  
+      if (response) {            
+        this.alertModalService.showAlertSuccess("Cuidador excluído com sucesso");
+        setTimeout(() => {
+          this.cuidadorForm.reset();
+          this.carregarCuidadores();      
+        });
+      }
+    },
+  );
+ }
+ public pesquisarCuidador() {   
+    this.cuidadorService.listar(this.cuidadorForm.value.filtro, this.cuidadorForm.value.filtroNome).subscribe((cuidador) => {
+        this.cuidadores = cuidador;
+      });
   }
 }

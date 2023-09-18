@@ -1,8 +1,9 @@
+import { SpinnerComponent } from './spinner/spinner.component';
 import { LOCALE_ID, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { RouterModule } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { AppComponent } from "./app.component";
 
 import { ReactiveFormsModule } from "@angular/forms";
@@ -29,6 +30,7 @@ import { DetalhePacienteComponent } from "./paciente/detalhe-paciente/detalhe-pa
 import { ListaMapaComponent } from "./mapa/lista-mapa/lista-mapa.component";
 import ptBr from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { LoadingInterceptor } from './loading.interceptor';
 
 
 registerLocaleData(ptBr);
@@ -44,7 +46,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 };
 
 @NgModule({
-  declarations: [
+  declarations: [		
     AppComponent,
     SobreComponent,
     ContatoComponent,
@@ -57,9 +59,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ListaPacienteComponent,
     EditarPacienteComponent,
     DetalhePacienteComponent,
-    ListaMapaComponent
-    
-  ],
+    ListaMapaComponent,
+    SpinnerComponent
+   ],
   imports: [
     BrowserModule, 
     NavegacaoModule, 
@@ -76,6 +78,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     { provide: APP_BASE_HREF, useValue: "/" },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: LOCALE_ID, useValue: 'pt' },
+    {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
     provideNgxMask()
   ],
   bootstrap: [AppComponent],

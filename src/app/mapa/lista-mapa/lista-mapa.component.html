@@ -1,314 +1,328 @@
-<div class="container">
-   <div class="container-fluid pt-4 px-4">
-     <div class="bg-light text-center rounded p-4">
-       <div class="d-flex align-items-center justify-content-between mb-4">
-         <h5 class="me-auto mb-0">Paciente</h5>
-         <!-- <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" >
-          Imprimir
-          </button>  -->
-       </div>
-       <div>
-         <div class="card text-center mb-2" *ngFor="let paciente of pacientes">
-           <div class="card-header">
-            <div class="row">
-               <div class="text-start col-6 col-md-2">
-                  <h6>PACIENTE: </h6>
-               </div>
-               <div class="titulo-paciente col-12 col-md-10" >
-                  <h6 class="text-start"> {{paciente.nomePaciente}} </h6>
-               </div>
-             </div>            
-            </div>
-           <div class="card-body">
-            <div class="row">
-               <div class="table-responsive col-12">
-                  <table class="table text-start align-middle table-bordered table-hover mb-0">
-                    <thead>
-                      <tr class="fs-8 text-dark text-center">
-                         <th colspan="6" scope="col">Dados Paciente</th>                        
-                      </tr>
-                   </thead>
-                     <tbody>
-                       <tr>
-                         <td>
-                          <span class="letra">Idade:&nbsp;</span> 
-                          <span class="letra-normal">{{paciente.idade}}</span>
-                         </td>
-                         <td>
-                          <span  class="letra">Data Inicio:&nbsp;</span> 
-                          <span class="letra-normal">{{paciente.dataInicio | date : 'dd/MM/yyyy'}}</span>
-                         </td>
-                         <td>
-                          <span  class="letra">Telefone(s):&nbsp;</span> 
-                          <span *ngFor="let a of paciente.telefonesPaciente">
-                            <span class="letra-normal">{{ a.numeroTelefone | phone }}</span>
-                          </span>
-                         </td>
-                         <td class="col-5" colspan="3">
-                          <span *ngFor="let a of paciente.enderecosPaciente">
-                            <span  class="letra">Endereço:&nbsp;</span>
-                            <span class="letra-normal">{{ a.logradouro + ' nº ' +  a.numero }}</span>                           
-                            <span  class="letra">&nbsp;Bairro:&nbsp;</span>
-                            <span class="letra-normal">{{ a.bairro }}</span>
-                            <span  class="letra">&nbsp;Cep:&nbsp;</span>
-                            <span class="letra-normal">{{ a.cep }}</span>
-                            </span>
-                         </td>
-                       </tr>
-                       <tr>
-                        <td colspan="3">
-                          <span class="letra">Observação:&nbsp;</span> 
-                          <span class="letra-normal">{{paciente.observacao}}</span>
-                        </td>
-                        <td colspan="3">
-                          <span class="letra">Jornada:&nbsp;</span> 
-                          <span class="letra-normal">{{paciente.jornada}}</span>
-                        </td>
-                       </tr>
-                       <tr>
-                        <td colspan="3">
-                          <span class="letra">Decrição do Paciente:&nbsp;</span> 
-                          <span class="letra-normal descricao-paciente">{{paciente.descricaoPaciente}}</span>
-                        </td>
-                        <td colspan="3">
-                          <span class="letra">Particulariedade:&nbsp;</span> 
-                          <span class="letra-normal">{{paciente.particulariedade}}</span>
-                        </td>
-                       </tr>
-                       <tr>
-                        <td colspan="6">
-                          <div class="container text-center">
-                            <div class="borda-grid row align-items-start">
-                              <div  class="col-5">
-                                <span class="letra">Responsavel</span>
-                              </div>
-                              <div  class="col">
-                                <span class="letra">Contato</span>
-                              </div>                              
-                            </div>
-                          </div>
-                          <div class="container text-dark">
-                            <div class="row align-items-start" *ngFor="let a of paciente.responsaveisPaciente">                              
-                              <div class="borda-grid col-5">
-                                <span class="letra-medio">{{a.nomeResponsavel}}</span>
-                              </div>
-                              <div class="borda-grid col">
-                                <span *ngFor="let a of a.telefonesResponsavel">
-                                  <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
-                                </span>
-                              </div>                             
-                            </div>
-                          </div>
-                        </td>
-                       </tr>                      
-                       <tr>
-                        <td colspan="6">
-                          <div class="container text-center">
-                            <div class="borda-grid row align-items-start">
-                              <div  class="col-5">
-                                <span class="letra">Cuidador</span>
-                              </div>
-                              <div  class="col">
-                                <span class="letra">Contato</span>
-                              </div>
-                              <div class="col">
-                                <span class="letra">Turno</span>
-                              </div>
-                              <div class="col">
-                                <span class="letra">Início do Cuidador</span>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="container text-dark">
-                            <div class="row align-items-start" *ngFor="let a of paciente.atendimentosPaciente">
-                              <div [ngClass]="a.profissionalCor != 'Verde' ? 'amarelo-cuidador' : 'verde-cuidador'" class="borda-grid col-md-auto">
-                                <span class="letra-medio">{{a.descricaoCategoria}}</span>
-                              </div>
-                              <div class="borda-grid col-5">
-                                <span class="letra-medio">{{a.nomeCuidador}}</span>
-                              </div>
-                              <div class="borda-grid col">
-                                <span *ngFor="let a of a.telefonesCuidador">
-                                  <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
-                                </span>
-                              </div>
-                              <div class="borda-grid letra-centralizada col-1">
-                                <span class="letra-medio">{{a.turno}}</span>
-                              </div>
-                              <div class=" borda-grid letra-centralizada col">
-                                <span class="letra-medio">{{a.dataInicio | date : 'dd/MM/yyyy'}}</span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                       </tr>
-                     </tbody>
-                   </table>
-               </div>
-             </div>
-           </div>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>
-<!-- Modal responsável -->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h1 class="modal-title fs-5" id="exampleModalLabel">Adicionar Responsável</h1>
-           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">          
-          <div>
-        <div class="card text-center mb-2" *ngFor="let paciente of pacientes">
-          <div class="card-header">
-           <div class="row">
-              <div class="text-start col-6 col-md-2">
-                 <h6>PACIENTE: </h6>
-              </div>
-              <div class="titulo-paciente col-12 col-md-10" >
-                 <h6 class="text-start"> {{paciente.nomePaciente}} </h6>
-              </div>
-            </div>            
-           </div>
-          <div class="card-body">
-           <div class="row">
-              <div class="table-responsive col-12">
-                 <table class="table text-start align-middle table-bordered table-hover mb-0">
-                   <thead>
-                     <tr class="fs-8 text-dark text-center">
-                        <th colspan="6" scope="col">Dados Paciente</th>                        
-                     </tr>
-                  </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                         <span class="letra">Idade:&nbsp;</span> 
-                         <span class="letra-normal">{{paciente.idade}}</span>
-                        </td>
-                        <td>
-                         <span  class="letra">Data Inicio:&nbsp;</span> 
-                         <span class="letra-normal">{{paciente.dataInicio | date : 'dd/MM/yyyy'}}</span>
-                        </td>
-                        <td>
-                         <span  class="letra">Telefone(s):&nbsp;</span> 
-                         <span *ngFor="let a of paciente.telefonesPaciente">
-                           <span class="letra-normal">{{ a.numeroTelefone | phone }}</span>
-                         </span>
-                        </td>
-                        <td class="col-5" colspan="3">
-                         <span *ngFor="let a of paciente.enderecosPaciente">
-                           <span  class="letra">Endereço:&nbsp;</span>
-                           <span class="letra-normal">{{ a.logradouro + ' nº ' +  a.numero }}</span>                           
-                           <span  class="letra">&nbsp;Bairro:&nbsp;</span>
-                           <span class="letra-normal">{{ a.bairro }}</span>
-                           <span  class="letra">&nbsp;Cep:&nbsp;</span>
-                           <span class="letra-normal">{{ a.cep }}</span>
-                           </span>
-                        </td>
-                      </tr>
-                      <tr>
-                       <td colspan="3">
-                         <span class="letra">Observação:&nbsp;</span> 
-                         <span class="letra-normal">{{paciente.observacao}}</span>
-                       </td>
-                       <td colspan="3">
-                         <span class="letra">Jornada:&nbsp;</span> 
-                         <span class="letra-normal">{{paciente.jornada}}</span>
-                       </td>
-                      </tr>
-                      <tr>
-                       <td colspan="3">
-                         <span class="letra">Decrição do Paciente:&nbsp;</span> 
-                         <span class="letra-normal descricao-paciente">{{paciente.descricaoPaciente}}</span>
-                       </td>
-                       <td colspan="3">
-                         <span class="letra">Particulariedade:&nbsp;</span> 
-                         <span class="letra-normal">{{paciente.particulariedade}}</span>
-                       </td>
-                      </tr>
-                      <tr>
-                       <td colspan="6">
-                         <div class="container text-center">
-                           <div class="borda-grid row align-items-start">
-                             <div  class="col-5">
-                               <span class="letra">Responsavel</span>
-                             </div>
-                             <div  class="col">
-                               <span class="letra">Contato</span>
-                             </div>                              
-                           </div>
-                         </div>
-                         <div class="container text-dark">
-                           <div class="row align-items-start" *ngFor="let a of paciente.responsaveisPaciente">                              
-                             <div class="borda-grid col-5">
-                               <span class="letra-medio">{{a.nomeResponsavel}}</span>
-                             </div>
-                             <div class="borda-grid col">
-                               <span *ngFor="let a of a.telefonesResponsavel">
-                                 <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
-                               </span>
-                             </div>                             
-                           </div>
-                         </div>
-                       </td>
-                      </tr>                      
-                      <tr>
-                       <td colspan="6">
-                         <div class="container text-center">
-                           <div class="borda-grid row align-items-start">
-                             <div  class="col-5">
-                               <span class="letra">Cuidador</span>
-                             </div>
-                             <div  class="col">
-                               <span class="letra">Contato</span>
-                             </div>
-                             <div class="col">
-                               <span class="letra">Turno</span>
-                             </div>
-                             <div class="col">
-                               <span class="letra">Início do Cuidador</span>
-                             </div>
-                           </div>
-                         </div>
-                         <div class="container text-dark">
-                           <div class="row align-items-start" *ngFor="let a of paciente.atendimentosPaciente">
-                             <div [ngClass]="a.profissionalCor != 'Verde' ? 'amarelo-cuidador' : 'verde-cuidador'" class="borda-grid col-md-auto">
-                               <span class="letra-medio">{{a.descricaoCategoria}}</span>
-                             </div>
-                             <div class="borda-grid col-5">
-                               <span class="letra-medio">{{a.nomeCuidador}}</span>
-                             </div>
-                             <div class="borda-grid col">
-                               <span *ngFor="let a of a.telefonesCuidador">
-                                 <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
-                               </span>
-                             </div>
-                             <div class="borda-grid letra-centralizada col-1">
-                               <span class="letra-medio">{{a.turno}}</span>
-                             </div>
-                             <div class=" borda-grid letra-centralizada col">
-                               <span class="letra-medio">{{a.dataInicio | date : 'dd/MM/yyyy'}}</span>
-                             </div>
-                           </div>
-                         </div>
-                       </td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-            </div>
+<div class="no-print container">
+  <div class="container-fluid pt-4 px-4">
+      <div class="bg-light text-center rounded p-4">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+              <h5 class="me-auto mb-0">Paciente</h5>
+              <button class="no-print btn btn-primary" type="button" data-bs-toggle="modal" onclick="print()">
+                  Imprimir
+              </button>
           </div>
-        </div>
+          <div>
+              <div class="card text-center mb-2" *ngFor="let paciente of pacientes">
+                  <div class="card-header">
+                      <div class="row">
+                          <div class="no-print text-start col-6 col-md-2">
+                              <h6>PACIENTE:</h6>
+                          </div>
+                          <div class="titulo-paciente col-12 col-md-10">
+                              <h6 class="text-start">{{paciente.nomePaciente}}</h6>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="table-responsive col-12">
+                              <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                  <thead class="no-print">
+                                      <tr class="fs-8 text-dark text-center">
+                                          <th colspan="6" scope="col">Dados Paciente</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr>
+                                          <td>
+                                              <span class="letra">Idade:&nbsp;</span>
+                                              <span class="letra-normal">{{paciente.idade}}</span>
+                                          </td>
+                                          <td>
+                                              <span class="letra">Data Inicio:&nbsp;</span>
+                                              <span class="letra-normal">{{paciente.dataInicio | date : 'dd/MM/yyyy'}}</span>
+                                          </td>
+                                          <td>
+                                              <span class="letra">Telefone(s):&nbsp;</span>
+                                              <span *ngFor="let a of paciente.telefonesPaciente">
+                                                  <span class="letra-normal">{{ a.numeroTelefone | phone }}</span>
+                                              </span>
+                                          </td>
+                                          <td class="col-5" colspan="3">
+                                              <span *ngFor="let a of paciente.enderecosPaciente">
+                                                  <span class="letra">Endereço:&nbsp;</span>
+                                                  <span class="letra-normal">{{ a.logradouro + ' nº ' + a.numero }}</span>
+                                                  <span class="letra">&nbsp;Bairro:&nbsp;</span>
+                                                  <span class="letra-normal">{{ a.bairro }}</span>
+                                                  <span class="letra">&nbsp;Cep:&nbsp;</span>
+                                                  <span class="letra-normal">{{ a.cep }}</span>
+                                              </span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="3">
+                                              <span class="letra">Observação:&nbsp;</span>
+                                              <span class="letra-normal">{{paciente.observacao}}</span>
+                                          </td>
+                                          <td colspan="3">
+                                              <span class="letra">Jornada:&nbsp;</span>
+                                              <span class="letra-normal">{{paciente.jornada}}</span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="3">
+                                              <span class="letra">Decrição do Paciente:&nbsp;</span>
+                                              <span class="letra-normal descricao-paciente">{{paciente.descricaoPaciente}}</span>
+                                          </td>
+                                          <td colspan="3">
+                                              <span class="letra">Particulariedade:&nbsp;</span>
+                                              <span class="letra-normal">{{paciente.particulariedade}}</span>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="3">
+                                              <div class="container text-center">
+                                                  <div class="borda-grid row align-items-start">
+                                                      <div class="col-5">
+                                                          <span class="letra">Responsavel</span>
+                                                      </div>
+                                                      <div class="col">
+                                                          <span class="letra">Contato</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="container text-dark">
+                                                  <div class="row align-items-start" *ngFor="let a of paciente.responsaveisPaciente">
+                                                      <div class="borda-grid col-5">
+                                                          <span class="letra-medio">{{a.nomeResponsavel}}</span>
+                                                      </div>
+                                                      <div class="borda-grid col">
+                                                          <span *ngFor="let a of a.telefonesResponsavel">
+                                                              <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                          <td colspan="3">
+                                              <div class="container text-center">
+                                                  <div class="borda-grid row align-items-start">
+                                                      <div class="col-5">
+                                                          <span class="letra">Pacote Mensal</span>
+                                                      </div>
+                                                      <div class="col">
+                                                          <span class="letra">Salario do Cuidador</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="container text-dark">
+                                                  <div class="row align-items-start" *ngFor="let a of paciente.paciente_Pacotes">
+                                                      <div class="borda-grid col-6">
+                                                          <span class="letra-medio">{{a.valorPacote | currency:'BRL'}}</span>
+                                                      </div>
+                                                      <div class="borda-grid letra-centralizada col-6">
+                                                          <span class="letra-medio">{{a.salarioCuidador | currency:'BRL'}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td colspan="6">
+                                              <div class="container text-center">
+                                                  <div class="borda-grid row align-items-start">
+                                                      <div class="col-5">
+                                                          <span class="letra">Cuidador</span>
+                                                      </div>
+                                                      <div class="col">
+                                                          <span class="letra">Contato</span>
+                                                      </div>
+                                                      <div class="col">
+                                                          <span class="letra">Turno</span>
+                                                      </div>
+                                                      <div class="col">
+                                                          <span class="letra">Início do Cuidador</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <div class="container text-dark">
+                                                  <div class="row align-items-start" *ngFor="let a of paciente.atendimentosPaciente">
+                                                      <div [ngClass]="a.profissionalCor != 'Verde' ? 'amarelo-cuidador' : 'verde-cuidador'" class="borda-grid col-md-auto">
+                                                          <span class="letra-medio">{{a.descricaoCategoria}}</span>
+                                                      </div>
+                                                      <div class="borda-grid col-5">
+                                                          <span class="letra-medio">{{a.nomeCuidador}}</span>
+                                                      </div>
+                                                      <div class="borda-grid col">
+                                                          <span *ngFor="let a of a.telefonesCuidador">
+                                                              <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
+                                                          </span>
+                                                      </div>
+                                                      <div class="borda-grid letra-centralizada col-1">
+                                                          <span class="letra-medio">{{a.turno}}</span>
+                                                      </div>
+                                                      <div class="borda-grid letra-centralizada col">
+                                                          <span class="letra-medio">{{a.dataInicio | date : 'dd/MM/yyyy'}}</span>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </td>
+                                      </tr>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-        <div class="modal-footer">
-           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-           <button class="btn btn-primary" type="button" data-bs-dismiss="modal"  >
-            Imprimir
-           </button> 
-        </div>
-     </div>
   </div>
+</div>
+
+
+ <div *ngFor="let paciente of pacientes" class="only-print div-tamanho">
+  <table>
+      <tbody>
+          <tr>
+              <td class="text-center" colspan="4"><span class="letra">Pacinete:&nbsp;</span><span class="nome_paciente" >{{paciente.nomePaciente}}</span></td>
+          </tr>
+          <tr>
+              <td>
+                  <span class="letra">Idade:&nbsp;</span>
+                  <span class="letra-normal">{{paciente.idade}}</span>
+              </td>
+              <td>
+                  <span class="letra">Data Inicio:&nbsp;</span>
+                  <span class="letra-normal">{{paciente.dataInicio | date : 'dd/MM/yyyy'}}</span>
+              </td>
+              <td colspan="2">
+                  <span class="letra">Telefone(s):&nbsp;</span>
+                  <span *ngFor="let a of paciente.telefonesPaciente">
+                      <span class="letra-normal">{{ a.numeroTelefone | phone }}</span>
+                  </span>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+                <span *ngFor="let a of paciente.enderecosPaciente">
+                    <span class="letra">Endereço:&nbsp;</span>
+                    <span class="letra-normal">&nbsp;{{ a.logradouro + ' nº ' + a.numero }}&nbsp;</span>
+                    <span class="letra">&nbsp;Bairro:&nbsp;</span>
+                    <span class="letra-normal">{{ a.bairro }}</span>
+                    <span class="letra">&nbsp;Cep:&nbsp;</span>
+                    <span class="letra-normal">{{ a.cep }}</span>
+                </span>
+            </td>
+          </tr>
+          <tr>
+              <td colspan="4">
+                  <span class="letra">Observação:&nbsp;</span>
+                  <span class="letra-normal">{{paciente.observacao}}</span>
+              </td>
+          </tr>
+          <tr>
+          <td colspan="4">
+            <span class="letra">Decrição do Paciente:&nbsp;</span>
+            <span class="letra-normal descricao-paciente">{{paciente.descricaoPaciente}}</span>
+        </td>
+    </tr>
+          <tr>
+              <td colspan="4">
+                  <span class="letra">Jornada:&nbsp;</span>
+                  <span class="letra-normal">{{paciente.jornada}}</span>
+              </td>
+          </tr>
+          <tr>
+              <td colspan="4">
+                  <span class="letra">Particulariedade:&nbsp;</span>
+                  <span class="letra-normal">{{paciente.particulariedade}}</span>
+              </td>
+          </tr>        
+          <tr>
+            <td colspan="2">
+                <table style="border: none;">
+                    <thead>
+                        <tr  class="text-center">
+                            <th style="border: none;">
+                              <span class="letra">Pacote Mensal</span>
+                            </th>
+                            <th style="border: none;">
+                                <span class="letra">Salario do Cuidador</span>
+                            </th>                            
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let a of paciente.paciente_Pacotes">
+                        <td style="border: none;">
+                          <span class="letra-medio">{{a.valorPacote | currency:'BRL'}}</span>
+                        </td>
+                        <td style="border: none;">
+                          <span class="letra-medio">{{a.salarioCuidador | currency:'BRL'}}</span>
+                        </td>                       
+                    </tbody>
+                </table>
+            </td>
+            <td colspan="2">
+              <table style="border: none;">
+                  <thead>
+                      <tr class="text-center">
+                          <th style="border: none;">
+                            <span class="letra">Responsavel</span>
+                          </th>
+                          <th style="border: none;">
+                            <span class="letra">Contato</span>
+                          </th>                            
+                      </tr>
+                  </thead>
+                  <tbody *ngFor="let a of paciente.responsaveisPaciente">
+                      <td style="border: none;">
+                        <span class="letra-medio">&nbsp;{{a.nomeResponsavel}}</span>
+                      </td>
+                      <td style="border: none;">
+                        <span *ngFor="let a of a.telefonesResponsavel">
+                          <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
+                      </span>
+                      </td>                       
+                  </tbody>
+              </table>
+          </td>
+        </tr>
+          <tr>
+              <td colspan="4">
+                  <table style="border: none;">
+                      <thead>
+                          <tr  class="text-center">
+                              <th style="border: none;" colspan="2">
+                                  <span class="letra">Cuidador</span>
+                              </th>
+                              <th style="border: none;">
+                                  <span class="letra">Contato</span>
+                              </th>
+                              <th style="border: none;">
+                                  <span class="letra">Turno</span>
+                              </th>
+                              <th style="border: none;">
+                                  <span class="letra">Início do Cuidador</span>
+                              </th>
+                          </tr>
+                      </thead>
+                      <tbody *ngFor="let a of paciente.atendimentosPaciente">
+                          <td style="border: none;" [ngClass]="a.profissionalCor != 'Verde' ? 'amarelo-cuidador' : 'verde-cuidador'">
+                              <span class="letra-medio">{{a.descricaoCategoria}}</span>
+                          </td>
+                          <td style="border: none;">
+                              <span class="letra-medio">{{a.nomeCuidador}}</span>
+                          </td>
+                          <td style="border: none;">
+                              <span *ngFor="let a of a.telefonesCuidador">
+                                  <span class="letra-medio">{{ a.numeroTelefone | phone }}</span>
+                              </span>
+                          </td >
+                          <td style="border: none;">
+                              <span class="letra-medio">{{a.turno}}</span>
+                          </td>
+                          <td style="border: none;">
+                              <span class="letra-medio">{{a.dataInicio | date : 'dd/MM/yyyy'}}</span>
+                          </td>
+                      </tbody>
+                  </table>
+              </td>
+          </tr>
+      </tbody>
+  </table>
 </div>

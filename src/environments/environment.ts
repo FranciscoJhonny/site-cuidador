@@ -4,8 +4,8 @@
 
 export const environment = {
     production: false,
-    UrlPrincipal:'https://localhost:7203'
-    //UrlPrincipal:'http://www.fmaia.somee.com/Output'
+    //UrlPrincipal:'https://localhost:7203'
+    UrlPrincipal:'http://www.fmaia.somee.com/Output'
   };
   
   /*

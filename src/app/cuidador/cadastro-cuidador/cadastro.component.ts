@@ -1,3 +1,4 @@
+import { CuidadorPostDto } from './../../models/cuidadorPostDto';
 import { AlertModalService } from './../../shared/alert-modal.service';
 import { Telefone } from './../../models/telefone';
 import { CuidadorService } from "../../services/cuidador.service";
@@ -13,13 +14,13 @@ import { Router } from "@angular/router";
 })
 export class CadastroCuidadorComponent implements OnInit {
   cuidadorForm!: FormGroup;
+  telefoneCuidadorForm!: FormGroup;
   cuidador!: Cuidador;
   formResult: string = "";
   listaTelefone!: Telefone[];
   telefone!: Telefone;
   public nomeCuidador: any;
-  public telefone01: any;
-  public tipotelefone: any;
+  
 
   constructor(
     private fb: FormBuilder,
@@ -30,30 +31,45 @@ export class CadastroCuidadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.listaTelefone = [];
-
-    this.cuidadorForm = this.fb.group({
-      nomeCuidador: ["", Validators.required],
-      categoriaId: ["", Validators.required],
-      tipotelefone01: [""],
-      telefone01: [""],
+    this.createFormTelefoneCuidador();
+    this.createFormCuidador();
+  }
+createFormCuidador(){
+  this.cuidadorForm = this.fb.group({
+    nomeCuidador: ["", Validators.required],
+    categoriaId: ["", Validators.required]
+  });
+}
+  createFormTelefoneCuidador() {
+    this.telefoneCuidadorForm = this.fb.group({
+      telefone: ["",[Validators.pattern(/^\(\d{2}\)\s\d{4}-\d{4,5}$/), Validators.required],],
+      tipotelefone: [""],
     });
   }
-
   salvarCuidador() {
     if (
       this.cuidadorForm.dirty &&
       this.cuidadorForm.valid &&
       this.listaTelefone.length > 0
     ) {
-      this.cuidador = Object.assign({}, this.cuidador, this.cuidadorForm.value);
-      this.cuidador.telefonesCuidador = this.listaTelefone;
-      this.cuidadorService.PostCuidador(this.cuidador).subscribe(
-        (response) => {
-          if (response) {
-            //this.router.navigate(["cuidador"]);
+      // this.cuidador = Object.assign({}, this.cuidador, this.cuidadorForm.value);
+      // this.cuidador.telefonesCuidador = this.listaTelefone;
+      let cuidadorCadastro: CuidadorPostDto = {
+        nomeCuidador: this.cuidadorForm.value.nomeCuidador,
+        categoriaId:  this.cuidadorForm.value.categoriaId,
+        telefonesCuidador: this.listaTelefone
+      };
+      this.cuidadorService.PostCuidador(cuidadorCadastro).subscribe(
+        (response) => {          
+          if (response) {            
             this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
             setTimeout(() => {
-              document.location.reload();
+              //document.location.reload();
+              this.telefoneCuidadorForm.reset();
+              this.cuidadorForm.reset();
+              this.createFormCuidador();
+              this.createFormTelefoneCuidador();
+              this.listaTelefone = [];
             });
           }
         },
@@ -61,7 +77,7 @@ export class CadastroCuidadorComponent implements OnInit {
           console.log(erro);
         }
       );
-      this.formResult = JSON.stringify(this.cuidadorForm.value);
+      //this.formResult = JSON.stringify(this.cuidadorForm.value);
     } else {
       this.formResult = "Não submeteu";
     }
@@ -77,22 +93,23 @@ export class CadastroCuidadorComponent implements OnInit {
 
   adicionarTelefone() {
     if (
-      this.cuidadorForm.value.tipotelefone01 != "" &&
-      this.cuidadorForm.value.telefone01 != ""
+      this.telefoneCuidadorForm.value.tipotelefone != "" &&
+      this.telefoneCuidadorForm.value.telefone != ""
     ) {
       let telefone: Telefone = {
         telefoneId: 0,
-        tipoTelefoneId: this.cuidadorForm.value.tipotelefone01,
-        numeroTelefone: this.cuidadorForm.value.telefone01,
+        tipoTelefoneId: this.telefoneCuidadorForm.value.tipotelefone,
+        numeroTelefone: this.telefoneCuidadorForm.value.telefone,
         descricaoTipoTelefone:
-          this.cuidadorForm.value.tipotelefone01 == 1
+          this.telefoneCuidadorForm.value.tipotelefone == 1
             ? "Residencial"
-            : this.cuidadorForm.value.tipotelefone01 == 2
+            : this.telefoneCuidadorForm.value.tipotelefone == 2
             ? "Celular"
             : "Fixo",
       };
       this.listaTelefone.push(telefone);
-      this.telefone01 = "";
+      this.telefoneCuidadorForm.reset();
+      this.createFormTelefoneCuidador();
     }
   }
 
@@ -100,5 +117,41 @@ export class CadastroCuidadorComponent implements OnInit {
     if (e != undefined) {
       this.nomeCuidador = e.toUpperCase();
     }
+  }
+
+  public phoneMask(event: any) {
+    // Permite Backspace para usuário remover ")" e "-"
+    if (event.keyCode === 8 && this.deletandoCaracter(event.target.value)) {
+      return;
+    }
+    event.target.value = this.maskPhone(event.target.value);
+  }
+  maskPhone(value: any) {
+    let tel = value.replace(/\D/g, "");
+    tel = tel.replace(/^0/, "");
+    if (tel.length > 10) {
+      // ########## -> (##) #####-####
+      tel = tel.replace(/^(\d{2})?(\d{5})?(\d{4}).*/, "($1) $2-$3");
+    } else if (tel.length > 9) {
+      // AA######### -> (AA) ####-####
+      tel = tel.replace(/^(\d{2})?(\d{4})?(\d{4}).*/, "($1) $2-$3");
+    } else if (tel.length > 5) {
+      // ####### -> (##) ####-#
+      tel = tel.replace(/^(\d{2})?(\d{4})?(\d{0,4}).*/, "($1) $2-$3");
+    } else if (tel.length > 1) {
+      // #### -> (##) ##
+      tel = tel.replace(/^(\d{2})?(\d{0,5}).*/, "($1) $2");
+    } else {
+      if (tel !== "") {
+        tel = tel.replace(/^(\d*)/, "($1");
+      }
+    }
+    return tel;
+  }
+  deletandoCaracter(value: any) {
+    if (value.length === 9 || value.length === 4 || value.length === 3) {
+      return true;
+    }
+    return false;
   }
 }

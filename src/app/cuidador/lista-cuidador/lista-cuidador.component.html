@@ -1,14 +1,39 @@
 <div class="container" *ngIf="!exitCuidador">
   <div class="container-fluid pt-4 px-4">
-     <div class="bg-light text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-           <h5 class="me-auto mb-0">Cuidador</h5>
-           <button type="button" class="btn btn-primary"
-              (click)="cadastrarCuidador()">
-              Cadastrar
-           </button>
-           <hr />
-        </div>
+     <div class="bg-light text-center rounded p-4"> 
+      <form   [formGroup]="cuidadorForm"  novalidate>
+        <div class="d-flex align-items-center justify-content-between mb-4">         
+           <h5 class="me-auto p-2">Cuidador</h5>
+           <div class="p-2 flex-grow-1">
+            &nbsp;&nbsp;
+          </div>
+          <div class="p-2">
+            &nbsp;&nbsp;
+          </div>
+          <div class="p-2">
+            &nbsp;&nbsp;
+          </div>
+           <div class="p-2">             
+               <select class="form-select" id="filtro" formControlName="filtro">
+                  <option value="0">Todos</option>
+                  <option value="1">Nome que comece com</option>
+                  <option value="2">Nome que contenha</option>                 
+               </select>               
+            </div>
+           <div class="p-2 flex-grow-1">
+            <input type="text" class="form-control" placeholder="O que você procura" id="filtroNome" formControlName="filtroNome"   />
+           </div>
+           <div class="p-2">
+               <button type="button" class="btn btn-primary" (click)="pesquisarCuidador()">
+               Buscar
+               </button>
+            </div>
+           <div class="p-2">
+            <button type="button" class="btn btn-primary" (click)="cadastrarCuidador()">
+            Cadastrar</button>
+           </div>
+        </div> 
+      </form> 
         <div class="table-responsive">
            <table class="table text-start align-middle table-bordered table-hover mb-0" >
               <thead>
@@ -34,6 +59,9 @@
                        </button>
                        <button  (click)="editarCuidador(cuidador)" class="btn btn-sm btn-warning rounded-pill px-3" href="">
                         Editar
+                       </button>
+                       <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="cuidadorExcluir(cuidador)">
+                        Excluir
                        </button>
                     </td>
                  </tr>
