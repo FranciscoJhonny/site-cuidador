@@ -1,3 +1,4 @@
+import { TokenService } from './../../services/token.service';
 import { AlertModalService } from './../../shared/alert-modal.service';
 import { Component, OnInit } from "@angular/core";
 import { Cuidador } from "../../models/cuidador";
@@ -23,23 +24,28 @@ export class ListaCuidadorComponent implements OnInit {
  public  filtroNome: any;
   favorito: boolean = false;
   public nomeCuidador: any;
+  token = '';
   
 
   constructor(
     private cuidadorService: CuidadorService,
     private alertModalService: AlertModalService,
+    private tokenService: TokenService,
     private router: Router,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.cuidadorForm = this.fb.group({
-      filtro: ["0", Validators.required],
-      filtroNome: ["", Validators.required],
-    });
+    this.token = this.tokenService.retornarToken();
+    this.carregarForm();
     this.carregarCuidadores();
   }
-
+carregarForm(){
+  this.cuidadorForm = this.fb.group({
+    filtro: ["0", Validators.required],
+    filtroNome: ["", Validators.required],
+  });
+}
   carregarCuidadores() {
     this.cuidadorService.getAll().subscribe(
       (cuidadores: Cuidador[]) => {
@@ -51,11 +57,11 @@ export class ListaCuidadorComponent implements OnInit {
     );
   }
   cadastrarCuidador() {
-    this.router.navigate(["cuidador-cadastro"]);
+    this.router.navigate(["site/cuidador-cadastro"]);
   }
 
   editarCuidador(cuidador: Cuidador) {
-    this.router.navigateByUrl(`cuidador-editar/${cuidador.cuidadorId}`);
+    this.router.navigateByUrl(`site/cuidador-editar/${cuidador.cuidadorId}`);
   }
 
   voltar() {
@@ -64,7 +70,7 @@ export class ListaCuidadorComponent implements OnInit {
     this.carregarCuidadores();
   }
   cuidadorDetalhe(cuidador: Cuidador) {
-    this.router.navigateByUrl(`cuidador-detalhe/${cuidador.cuidadorId}`);
+    this.router.navigateByUrl(`site/cuidador-detalhe/${cuidador.cuidadorId}`);
   }
  cuidadorExcluir (cuidador: Cuidador){
   this.cuidadorService.deleteCuidador(cuidador.cuidadorId).subscribe(

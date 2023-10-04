@@ -201,35 +201,38 @@
                     <div class="invalid-feedback">Pacote Mensal</div>
                  </div>
                  <div class="col-md-2">
-                    <label for="valorPacote" class="form-label">Valor do Pacote</label>
-                    <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote | currency:'BRL'"/>  
-                    <div class="invalid-feedback">Valor do pacote</div>
-                 </div>
-                 <div class="col-md-2">
-                    <label for="diaPacoteMensal" class="form-label">Dia/Pacote Mensal</label>
-                    <input  type="text" class="form-control"  id="diaPacoteMensal" formControlName="diaPacoteMensal" (change)="obterValorPlantaoPacote()" />
-                    <div class="invalid-feedback">Dia/Plantão é obrigatório</div>
-                 </div>
-                 <div class="col-md-5">
-                    <label for="valorPlantaoPacote" class="form-label">Valor Plantão Pacote</label>
-                    <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote | currency:'BRL'"  />
-                    <div class="invalid-feedback">Valor plantão pacote é obrigatório</div>
-                 </div>
-                 <div class="col-md-2">
-                    <label for="salarioCuidador" class="form-label">Salário Cuidador</label>
-                    <input type="text" class="form-control" id="salarioCuidador" currencyMask   formControlName="salarioCuidador"  />
-                    <div class="invalid-feedback">Salário cuidador é obrigatório</div>
-                 </div>
-                 <div class="col-md-2">
-                    <label for="salarioDiaCuidador" class="form-label">Dia/Cuidador</label>
-                    <input type="text" class="form-control" id="salarioDiaCuidador" formControlName="salarioDiaCuidador" (change)="obterValorCuidador()" />
-                    <div class="invalid-feedback">Dia/Cuidador é obrigatório</div>
-                 </div>
-                 <div class="col-md-3">
-                    <label for="valorPlantaoCuidador" class="form-label">Valor/Cuidador</label>
-                    <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador | currency:'BRL'"/>
-                    <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
-                 </div>
+                  <label for="valorPacote" class="form-label">Valor do Pacote</label>
+                  <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote" currencyMask/>  
+                  <!-- <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote | currency:'BRL'"/>   -->
+                  <div class="invalid-feedback">Valor do pacote</div>
+               </div>
+               <div class="col-md-2">
+                  <label for="diaPacoteMensal" class="form-label">Dia/Pacote Mensal</label>
+                  <input  type="text" class="form-control"  id="diaPacoteMensal" formControlName="diaPacoteMensal" (change)="obterValorPlantaoPacote()" />
+                  <div class="invalid-feedback">Dia/Plantão é obrigatório</div>
+               </div>
+               <div class="col-md-5">
+                  <label for="valorPlantaoPacote" class="form-label">Valor Plantão Pacote</label>
+                  <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote" currencyMask />
+                  <!-- <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote | currency:'BRL'"  /> -->
+                  <div class="invalid-feedback">Valor plantão pacote é obrigatório</div>
+               </div>
+               <div class="col-md-2">
+                  <label for="salarioCuidador" class="form-label">Salário Cuidador</label>
+                  <input type="text" class="form-control" id="salarioCuidador" currencyMask   formControlName="salarioCuidador"  />
+                  <div class="invalid-feedback">Salário cuidador é obrigatório</div>
+               </div>
+               <div class="col-md-2">
+                  <label for="salarioDiaCuidador" class="form-label">Dia/Cuidador</label>
+                  <input type="text" class="form-control" id="salarioDiaCuidador" formControlName="salarioDiaCuidador" (change)="obterValorCuidador()" />
+                  <div class="invalid-feedback">Dia/Cuidador é obrigatório</div>
+               </div>
+               <div class="col-md-3">
+                  <label for="valorPlantaoCuidador" class="form-label">Valor/Cuidador</label>
+                  <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador" currencyMask/>
+                  <!-- <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador | currency:'BRL'"/> -->
+                  <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
+               </div>
                  <div class="col-md-5">
                     <label for="observacao" class="form-label">Observação</label>
                     <textarea class="form-control" id="observacao" style="height: 30px"  [(ngModel)]="observacao"

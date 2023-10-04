@@ -1,5 +1,5 @@
 import { environment } from './../../environments/environment';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Cuidador } from "../models/cuidador";
 import { Observable } from "rxjs";
@@ -25,6 +25,9 @@ export class CuidadorService {
   }
 
   getAll(): Observable<Cuidador[]> {
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // })
     return this.http.get<Cuidador[]>(`${this.baseUrl}/get-lista-cuidador`);
   }
 

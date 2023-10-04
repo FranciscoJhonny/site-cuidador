@@ -34,7 +34,7 @@ export class PacienteService {
   }
 
   getAllMapa(): Observable<PacienteDto[]> {
-    return this.http.get<PacienteDto[]>(`${this.baseUrl}/get-lista-paciente`);
+    return this.http.get<PacienteDto[]>(`${this.baseUrl}/get-lista-paciente-mapa`);
   }
 
   getById(id: number): Observable<Paciente> {

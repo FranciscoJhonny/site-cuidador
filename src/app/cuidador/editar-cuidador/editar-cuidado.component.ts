@@ -99,12 +99,10 @@ export class EditarCuidadoComponent implements OnInit {
     if (this.cuidadorForm.valid && this.listaTelefone.length > 0) {
       const dados = this.montarDadosTurma();
       this.cuidadorService.PutCuidador(dados).subscribe(
-        async (response) => {
-          this.cuidadorForm.reset();
-          //this.router.navigate(["cuidador"]);
-          this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
+        async (response) => {          
           setTimeout(() => {
-            document.location.reload();
+            this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
+            this.cuidadorForm.reset();            
           });
         },
         async (erro) => {
@@ -147,7 +145,7 @@ export class EditarCuidadoComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(["cuidador"]);
+    this.router.navigate(["site/cuidador"]);
   }
   adicionarTelefone() {
     if (

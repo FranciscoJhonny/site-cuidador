@@ -84,7 +84,7 @@ createFormCuidador(){
   }
 
   voltar() {
-    this.router.navigate(["cuidador"]);
+    this.router.navigate(["site/cuidador"]);
   }
   excluirTelefone(telefone: Telefone) {
     const index = this.listaTelefone.indexOf(telefone);

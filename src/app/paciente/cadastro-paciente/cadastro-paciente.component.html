@@ -202,7 +202,8 @@
                   </div>
                   <div class="col-md-2">
                      <label for="valorPacote" class="form-label">Valor do Pacote</label>
-                     <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote | currency:'BRL'"/>  
+                     <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote" currencyMask/>  
+                     <!-- <input type="text" class="form-control" id="valorPacote" formControlName="valorPacote"  [ngModel]="valorPacote | currency:'BRL'"/>   -->
                      <div class="invalid-feedback">Valor do pacote</div>
                   </div>
                   <div class="col-md-2">
@@ -212,7 +213,8 @@
                   </div>
                   <div class="col-md-5">
                      <label for="valorPlantaoPacote" class="form-label">Valor Plantão Pacote</label>
-                     <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote | currency:'BRL'"  />
+                     <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote" currencyMask />
+                     <!-- <input  type="text" class="form-control"  id="valorPlantaoPacote" formControlName="valorPlantaoPacote"  [ngModel]="valorPlantaoPacote | currency:'BRL'"  /> -->
                      <div class="invalid-feedback">Valor plantão pacote é obrigatório</div>
                   </div>
                   <div class="col-md-2">
@@ -227,7 +229,8 @@
                   </div>
                   <div class="col-md-3">
                      <label for="valorPlantaoCuidador" class="form-label">Valor/Cuidador</label>
-                     <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador | currency:'BRL'"/>
+                     <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador" currencyMask/>
+                     <!-- <input type="text"  class="form-control" id="valorPlantaoCuidador" formControlName="valorPlantaoCuidador"  [ngModel]="valorPlantaoCuidador | currency:'BRL'"/> -->
                      <div class="invalid-feedback">Valor/Cuidador é obrigatório</div>
                   </div>
                   <div class="col-md-5">

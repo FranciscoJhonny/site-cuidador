@@ -1,3 +1,4 @@
+import { TokenService } from './../../services/token.service';
 import { Paciente } from 'src/app/models/paciente';
 import { EnderecoPutDto } from './../../models/enderecoPutDto';
 import { Responsavel } from './../../models/responsavel';
@@ -61,6 +62,7 @@ export class EditarPacienteComponent implements OnInit {
   listaAtendimentos!: Atendimento[];
   listaPacotePacientePutDto!: Paciente_PacotePutDto[];
   formModal: any;
+  token = '';
 
   @Input() type!: "success";
   @Input() message!: string;
@@ -75,7 +77,8 @@ export class EditarPacienteComponent implements OnInit {
     private turnoService: TurnoService,
     private router: Router,
     private alertModalService: AlertModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService,
   ) {
 
     let id = this.route.snapshot.paramMap.get("id");
@@ -83,8 +86,9 @@ export class EditarPacienteComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.token = this.tokenService.retornarToken();
     this.createFormPaciente();
-    this.createFormPacote();
+    this.createFormPacoteDesativados();
     this.createList();
     this.createFormTelefonePaciente();
     this.createFormTelefoneResponsavel();
@@ -174,9 +178,39 @@ export class EditarPacienteComponent implements OnInit {
       jornada: [""],
     });
   }
-  createFormPacote() {
+  createFormPacoteDesativados() {
     this.pacoteForm = this.fb.group({
       pacoteMensal: ["", Validators.required],
+      valorPacote: [{ value: "", disabled: true }],
+      diaPacoteMensal: ["", Validators.required],
+      valorPlantaoPacote: [{ value: "", disabled: true }],
+      salarioCuidador: ["", Validators.required],
+      salarioDiaCuidador: ["", Validators.required],
+      valorPlantaoCuidador: [{ value: "", disabled: true }],
+      observacao: [""],
+      valorDesconto: [""],
+      valorAcrescimo: [""],
+      taxaAdminstrativa: [""],
+    });
+  }
+  createFormPacoteAtivadosSemPacoteMensal(pacotemensal: string) {
+    this.pacoteForm = this.fb.group({
+      pacoteMensal: [pacotemensal, Validators.required],
+      valorPacote: [""],
+      diaPacoteMensal: ["", Validators.required],
+      valorPlantaoPacote: [""],
+      salarioCuidador: ["", Validators.required],
+      salarioDiaCuidador: ["", Validators.required],
+      valorPlantaoCuidador: [""],
+      observacao: [""],
+      valorDesconto: [""],
+      valorAcrescimo: [""],
+      taxaAdminstrativa: [""],
+    });
+  }
+  createFormPacoteDesativadosSemPacoteMensal(pacotemensal: string) {
+    this.pacoteForm = this.fb.group({
+      pacoteMensal: [pacotemensal, Validators.required],
       valorPacote: [{ value: "", disabled: true }],
       diaPacoteMensal: ["", Validators.required],
       valorPlantaoPacote: [{ value: "", disabled: true }],
@@ -371,12 +405,19 @@ export class EditarPacienteComponent implements OnInit {
   }
   obterValorPacote() {
     let pacoteId = this.pacoteForm.value.pacoteMensal;
-    this.valorPacote = this.listaPacotes
+    if(pacoteId != 45){     
+      this.createFormPacoteDesativadosSemPacoteMensal(pacoteId);
+      this.valorPacote =  this.listaPacotes
       .filter((a) => a.pacoteId == pacoteId)
       .map((a) => a.valorPacote)[0];
+    }
+    else{
+      this.createFormPacoteAtivadosSemPacoteMensal(pacoteId);
+    }
   }
   obterValorPlantaoPacote() {
-    let result = this.valorPacote / this.pacoteForm.value.diaPacoteMensal;
+    let pacoteId = this.pacoteForm.value.pacoteMensal;
+    let result = pacoteId != 45 ? (this.valorPacote / this.pacoteForm.value.diaPacoteMensal):(this.pacoteForm.value.valorPacote / this.pacoteForm.value.diaPacoteMensal);
     this.valorPlantaoPacote = result.toFixed(2);
   }
   obterValorCuidador() {
@@ -405,8 +446,8 @@ export class EditarPacienteComponent implements OnInit {
         pacinteId: 0,
         pacoteId: Number(pacoteId),
         descricaoPacoteMensal: descricaoPacote,
-        pacoteMensal: this.valorPacote, //Pacote mensal
-        valorPacote: this.valorPacote, //Valor do Pacote
+        pacoteMensal: pacoteId != 45 ? this.valorPacote: this.pacoteForm.value.valorPacote , //Pacote mensal
+        valorPacote:  pacoteId != 45 ? this.valorPacote: this.pacoteForm.value.valorPacote, //Valor do Pacote
         valorPlantaoPacote: Number(this.valorPlantaoPacote),
         diaPlantao: Number(this.pacoteForm.value.diaPacoteMensal), //Dia/Pacote Mensal
         salarioCuidador: Number(this.pacoteForm.value.salarioCuidador), //Salario cuidador
@@ -419,7 +460,7 @@ export class EditarPacienteComponent implements OnInit {
         ativo: true,
       };
       this.listaPacotePaciente.push(paciente_Pacote);
-      this.createFormPacote();
+      this.createFormPacoteDesativados();
     }
   }
   excluirPacote(paciente_pacote: Paciente_Pacote) {
@@ -485,12 +526,11 @@ export class EditarPacienteComponent implements OnInit {
       atendimentosPacientePutDtos: this.listaAtendimentos,
     };
     this.pacienteService.PutPaciente(pacienteCadastro).subscribe(
-      (response) => {       
-        this.alertModalService.showAlertSuccess("Paciente modificado com sucesso");    
-        //this.router.navigate(["paciente"]);  
-          // setTimeout(() => {                               
-          //   document.location.reload();
-          // });
+      (response) => {               
+          setTimeout(() => {  
+            this.alertModalService.showAlertSuccess("Paciente modificado com sucesso");           
+            this.router.navigate(["site/paciente"]);  
+          });
       },
       (erro) => {
         console.log(erro);
@@ -611,6 +651,6 @@ formatarDataEditar(data:string){
     return this.pacienteForm.controls[nomeDoCampo].value;
   }
   voltar() {
-    this.router.navigate(["paciente"]);
+    this.router.navigate(["site/paciente"]);
   }
 }

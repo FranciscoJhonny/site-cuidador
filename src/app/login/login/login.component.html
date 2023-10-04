@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="container-fluid pt-4 px-4">
+      <div class="row g-4 justify-content-center">
+          <div class="col-sm-4 col-xl-4">
+              <div class="bg-light rounded h-100 p-4">
+                  <div class="text-center">
+                      <img class="mb-4" src="http://cuidadosos.com.br/assets/img/logo-cuidadosos.svg" alt="" width="150" height="57" />
+                  </div>
+                  <div class="form-signin w-100 m-auto">
+                      <h4 class="mb-3">Login</h4>
+                      <form class="row g-3 needs-validation"  [formGroup]="loginForm"  novalidate>
+                          <div class="col-12">
+                              <label for="emailLogin" class="form-label">E-mail</label>                              
+                              <input type="text" class="form-control"  id="emailLogin" placeholder="E-mail (obrigatório)" formControlName="emailLogin"
+                              [(ngModel)]="emailLogin"  [ngClass]="{'is-invalid': loginForm.get('emailLogin')!.errors && 
+                              (loginForm.get('emailLogin')!.dirty || loginForm.get('emailLogin')!.touched)}" />
+                              <span class="text-danger" *ngIf=" loginForm.get('emailLogin')?.errors && (loginForm.get('emailLogin')?.dirty || loginForm.get('emailLogin')?.touched) ">
+                                  Email é obrigatório
+                              </span>
+                          </div>
+                          <div class="col-12">
+                              <label for="senhaLogin" class="form-label">Senha</label>
+                              <input type="password" class="form-control" id="senhaLogin" placeholder="Senha (obrigatório)" formControlName="senhaLogin"
+                              [(ngModel)]="senhaLogin"  [ngClass]="{'is-invalid': loginForm.get('senhaLogin')!.errors && 
+                              (loginForm.get('senhaLogin')!.dirty || loginForm.get('senhaLogin')!.touched)}" />
+                              <span  class="text-danger" *ngIf=" loginForm.get('senhaLogin')?.errors 
+                              && (loginForm.get('senhaLogin')?.dirty 
+                              || loginForm.get('senhaLogin')?.touched) ">
+                                  Senha é obrigatório
+                              </span>
+                          </div>
+                          <div class="col-12 d-flex gap-2">
+                              <button class="btn btn-primary" type="submit" (click)="login()" [disabled]="!(loginForm.valid )">
+                                  Logar
+                              </button>
+                          </div>
+                      </form>
+                      <hr class="my-4" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

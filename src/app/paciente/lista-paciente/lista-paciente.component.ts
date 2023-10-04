@@ -48,11 +48,11 @@ export class ListaPacienteComponent implements OnInit {
     );
   }
   cadastrarPaciente() {
-    this.router.navigate(["paciente-cadastro"]);
+    this.router.navigate(["site/paciente-cadastro"]);
   }
 
   editarPaciente(paciente: Paciente) {
-    this.router.navigateByUrl(`paciente-editar/${paciente.pacienteId}`);
+    this.router.navigateByUrl(`site/paciente-editar/${paciente.pacienteId}`);
   }
 
   voltar() {
@@ -60,14 +60,11 @@ export class ListaPacienteComponent implements OnInit {
     this.carregarPacientes();
   }
   detalhePaciente(paciente: Paciente) {
-    this.router.navigateByUrl(`paciente-detalhe/${paciente.pacienteId}`);
+    this.router.navigateByUrl(`site/paciente-detalhe/${paciente.pacienteId}`);
   }
 
   public pesquisarPaciente() {
-    this.pacienteService.listar(
-        this.pacienteForm.value.filtro,
-        this.pacienteForm.value.filtroNome
-      )
+    this.pacienteService.listar(this.pacienteForm.value.filtro,this.pacienteForm.value.filtroNome)
       .subscribe((paciente) => {
         this.pacientes = paciente;
       });

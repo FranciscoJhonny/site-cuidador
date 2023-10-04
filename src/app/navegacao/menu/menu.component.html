@@ -21,13 +21,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active"    [routerLink]="['/paciente']">Paciente</a>
+          <a class="nav-link" routerLinkActive="active"    [routerLink]="['/site/paciente']">Paciente</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/cuidador']" >Cuidador</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/site/cuidador']" >Cuidador</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/mapa']">Mapa</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/site/mapa']">Mapa</a>
         </li>
        <!--  <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/contato']" >Contato</a>
@@ -36,17 +36,33 @@
           <a class="nav-link" routerLinkActive="active" href="#">Features</a>
         </li> -->
       </ul>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
-          <a  class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
-            Jhonny
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
-            <li><a class="dropdown-item" href="#">Sair</a></li>
-          </ul>
-        </li>
-      </ul>
+     <diV *ngIf="user$ | async as Usuario, else login">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a  class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            {{nomeUsuar}}
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li><a class="dropdown-item" href="#">Perfil</a></li> -->
+              <li><a class="dropdown-item" (click)="desclogar()" href="#">Sair</a></li>
+            </ul>
+          </li>
+        </ul>
+      </diV>
+      <ng-template #login>
+        <!-- <ul class="navbar-nav ms-auto">
+          <li class="nav-item dropdown">
+            <a  class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            Logar
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Perfil</a></li>
+              <li><a class="dropdown-item" (click)="desclogar()" href="#">Entrar</a></li>
+            </ul>
+          </li>
+        </ul> -->
+      </ng-template>  
+     
     </div>
   </div>
 </nav>

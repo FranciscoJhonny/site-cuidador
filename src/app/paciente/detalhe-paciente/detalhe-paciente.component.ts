@@ -1,3 +1,4 @@
+import { TokenService } from './../../services/token.service';
 import { Component, OnInit } from '@angular/core';
 import { Paciente } from 'src/app/models/paciente';
 import { EnderecoPutDto } from './../../models/enderecoPutDto';
@@ -56,6 +57,7 @@ export class DetalhePacienteComponent implements OnInit {
   listaAtendimentos!: Atendimento[];
   listaPacotePacientePutDto!: Paciente_PacotePutDto[];
   formModal: any;
+  token = '';
 
   public bsModalRef!: BsModalRef;
   constructor(
@@ -66,13 +68,16 @@ export class DetalhePacienteComponent implements OnInit {
     private turnoService: TurnoService,
     private router: Router,
     private alertModalService: AlertModalService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenService: TokenService,
   ) {
 
     let id = this.route.snapshot.paramMap.get("id");
     this.pacienteId = id as any;
   }
-  ngOnInit() { this.createFormPaciente();
+  ngOnInit() { 
+    this.token = this.tokenService.retornarToken();
+    this.createFormPaciente();
     this.createList(); 
     this.carregarPacotes();
     this.carregarCuidador();
@@ -301,6 +306,6 @@ formatarDataEditar(data:string){
     return this.pacienteForm.controls[nomeDoCampo].value;
   }
   voltar() {
-    this.router.navigate(["paciente"]);
+    this.router.navigate(["site/paciente"]);
   }
 }
