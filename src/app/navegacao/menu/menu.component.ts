@@ -8,11 +8,16 @@ import { Component, OnInit } from "@angular/core";
 })
 export class MenuComponent implements OnInit {
   nomeUsuar!: string;
+  descricaoPerfil!: string;
   constructor(private userService: UserService, private router: Router) {}
 
   user$ = this.userService.retornarUser();
   ngOnInit() {
-    this.user$.forEach((x) => (this.nomeUsuar = x?.nome || ""));
+    console.log(this.user$);
+    this.user$.forEach((x) => {
+      (this.nomeUsuar = x?.nome || "");
+      (this.descricaoPerfil = x?.descricaoPerfil || "");
+  });
   }
   desclogar() {
     this.userService.logout();

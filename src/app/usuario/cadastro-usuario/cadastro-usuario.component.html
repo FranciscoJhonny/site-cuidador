@@ -1,0 +1,65 @@
+<div class="container">
+    <div class="container-fluid pt-4 px-4">
+        <div class="row g-4 justify-content-center">
+            <div class="col-sm-6 col-xl-6">
+                <div class="bg-light rounded h-100 p-4">
+                    <div class="form-signin w-100 m-auto">
+                        <h4 class="mb-3">Dados do Usuário</h4>
+                        <form class="row g-3 needs-validation" [formGroup]="usuarioForm" novalidate>
+                            <div class="col-12">
+                                <label for="nome" class="form-label">Nome</label>
+                                <input type="text" class="form-control"  id="nome" placeholder="Nome (obrigatório)" formControlName="nome"
+                                    [(ngModel)]="nome" (ngModelChange)="handleInput($event)" [ngClass]="{'is-invalid': usuarioForm.get('nome')!.errors && 
+                                    (usuarioForm.get('nome')!.dirty || usuarioForm.get('nome')!.touched)}" />
+                                <span class="text-danger" *ngIf=" usuarioForm.get('nome')?.errors 
+                                 && (usuarioForm.get('nome')?.dirty || usuarioForm.get('nome')?.touched)" >
+                                    Nome do usuário é obrigatório
+                                </span>
+                            </div> 
+                            <div class="col-12">
+                              <label for="perfilId" class="form-label">Perfil</label>
+                              <select   class="form-select" id="perfilId" placeholder="Selecione" formControlName="perfilId" >
+                                 <option value="">Selecione</option>
+                                 <option *ngFor="let p of listaPerfil" [value]="p.perfilId">
+                                 {{p.descricao}}
+                                 </option>                      
+                              </select>                            
+                              <div class="invalid-feedback">Pacote Mensal</div>
+                           </div>
+                            <div class="col-12">
+                              <label for="email" class="form-label">E-mail</label>                              
+                              <input type="text" class="form-control"  id="email" placeholder="E-mail (obrigatório)" formControlName="email"
+                              [(ngModel)]="email"  [ngClass]="{'is-invalid': usuarioForm.get('email')!.errors && 
+                              (usuarioForm.get('email')!.dirty || usuarioForm.get('email')!.touched)}" />
+                              <span class="text-danger" *ngIf=" usuarioForm.get('email')?.errors && (usuarioForm.get('email')?.dirty || usuarioForm.get('email')?.touched) ">
+                                  Email é obrigatório
+                              </span>
+                          </div>
+                          <div class="col-12">
+                              <label for="senha" class="form-label">Senha</label>
+                              <input type="password" class="form-control" id="senha" placeholder="Senha (obrigatório)" formControlName="senha"
+                              [(ngModel)]="senha"  [ngClass]="{'is-invalid': usuarioForm.get('senha')!.errors && 
+                              (usuarioForm.get('senha')!.dirty || usuarioForm.get('senha')!.touched)}" />
+                              <span  class="text-danger" *ngIf=" usuarioForm.get('senha')?.errors 
+                              && (usuarioForm.get('senha')?.dirty || usuarioForm.get('senha')?.touched) ">
+                                  Senha é obrigatório
+                              </span>
+                          </div>                     
+                        </form>
+                        <br />                                    
+                        <div class="col-12 d-flex gap-2">
+                            <button class="btn btn-success" type="submit" (click)="salvarUsuario()" [disabled]="!(usuarioForm.valid)">
+                                Salvar
+                            </button>
+                            <button class="btn btn-primary" (click)="voltar()">
+                                Voltar
+                            </button>
+                        </div>
+                        <hr class="my-4" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

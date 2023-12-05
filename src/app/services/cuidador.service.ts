@@ -8,7 +8,7 @@ import { CuidadorPostDto } from '../models/cuidadorPostDto';
   providedIn: "root",
 })
 export class CuidadorService {
-  baseUrl = `${environment.UrlPrincipal}/cuidador`;
+  baseUrl = `${environment.UrlPrincipal}`;
 
   constructor(private http: HttpClient) {}
 
@@ -25,9 +25,6 @@ export class CuidadorService {
   }
 
   getAll(): Observable<Cuidador[]> {
-    // const headers = new HttpHeaders({
-    //   'Authorization': `Bearer ${token}`
-    // })
     return this.http.get<Cuidador[]>(`${this.baseUrl}/get-lista-cuidador`);
   }
 
@@ -45,5 +42,12 @@ export class CuidadorService {
 
   deleteCuidador(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete-cuidador/${id}`);
+  }
+  verificaCuidador(nomeCuidador: string): Observable<any> {
+    let params = new HttpParams();
+    if (nomeCuidador.trim().length > 1) {
+      params = params.set('nomeCuidador', nomeCuidador);
+    }   
+    return this.http.get<boolean>(`${this.baseUrl}/verifica-cuidador`, { params });
   }
 }

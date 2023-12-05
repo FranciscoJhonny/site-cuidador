@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="container-fluid pt-4 px-4">
+     <div class="bg-light text-center rounded p-4"> 
+      <div class="d-flex align-items-center justify-content-between mb-4">
+              <h5 class="me-auto mb-0">Usuario</h5>
+              <button class="no-print btn btn-primary" type="button" data-bs-toggle="modal"  (click)="cadastrarUsuario()">
+                  Cadastrar
+              </button>
+          </div>      
+        <div class="table-responsive">
+           <table class="table text-start align-middle table-bordered table-hover mb-0" >
+              <thead>
+                 <tr class="text-dark">
+                    <th scope="col">#</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Perfil</th>
+                    <th scope="col">Ativado</th>
+                    <th scope="col">Opções</th>
+                 </tr>
+              </thead>
+              <tbody>
+                 <tr *ngFor="let usuario of usuarios">
+                    <th scope="row">{{ usuario.usuarioId }}</th>
+                    <td>{{ usuario.nome }}</td>
+                    <td>{{ usuario.perfil.descricao }}</td>
+                    <td>{{ usuario.ativo == true ? 'Ativado' : 'Desativado'}}</td>
+                    <td class="justify-content-center d-flex gap-2">  
+                       <!-- <button  (click)="editarUsuario(usuario)" class="btn btn-sm btn-warning rounded-pill px-3" href="">
+                        Desativar
+                       </button> -->
+                       <button class="btn btn-sm btn-danger rounded-pill px-3" href="" (click)="usuarioDesativar(usuario)">
+                        Desativar
+                       </button>                      
+                    </td>
+                 </tr>
+              </tbody>
+           </table>
+        </div>
+     </div>
+  </div>
+</div>
+

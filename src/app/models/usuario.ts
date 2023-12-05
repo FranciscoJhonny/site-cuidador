@@ -5,6 +5,7 @@ export interface Usuario {
        nome: string
        email: string ,
        perfilId: number,
+       ativo:boolean,
        perfil: Perfil;
        
 }

@@ -59,32 +59,44 @@ createFormCuidador(){
         categoriaId:  this.cuidadorForm.value.categoriaId,
         telefonesCuidador: this.listaTelefone
       };
-      this.cuidadorService.PostCuidador(cuidadorCadastro).subscribe(
-        (response) => {          
-          if (response) {            
-            this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
-            setTimeout(() => {
-              //document.location.reload();
-              this.telefoneCuidadorForm.reset();
-              this.cuidadorForm.reset();
-              this.createFormCuidador();
-              this.createFormTelefoneCuidador();
-              this.listaTelefone = [];
-            });
+      this.cuidadorService.verificaCuidador(cuidadorCadastro.nomeCuidador).subscribe(
+        (verifica: boolean) => {
+          if(!verifica)  {
+            this.cuidadorService.PostCuidador(cuidadorCadastro).subscribe(
+              (response) => {          
+                if (response) {            
+                  this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
+                  setTimeout(() => {
+                    //document.location.reload();
+                    this.telefoneCuidadorForm.reset();
+                    this.cuidadorForm.reset();
+                    this.createFormCuidador();
+                    this.createFormTelefoneCuidador();
+                    this.listaTelefone = [];
+                  });
+                }
+              },
+              (erro) => {
+                console.log(erro);
+              }
+            );
+          }else
+          {
+            this.alertModalService.showAlertDanger("Cuidador ja cadastrado, favor modificalo");
           }
         },
-        (erro) => {
-          console.log(erro);
+        (erro: any) => {
+          console.error(erro);
         }
       );
-      //this.formResult = JSON.stringify(this.cuidadorForm.value);
+      
     } else {
       this.formResult = "Não submeteu";
     }
   }
 
   voltar() {
-    this.router.navigate(["site/cuidador"]);
+    this.router.navigate(["cuidador"]);
   }
   excluirTelefone(telefone: Telefone) {
     const index = this.listaTelefone.indexOf(telefone);

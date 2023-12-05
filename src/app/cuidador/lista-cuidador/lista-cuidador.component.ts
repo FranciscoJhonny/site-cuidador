@@ -57,11 +57,11 @@ carregarForm(){
     );
   }
   cadastrarCuidador() {
-    this.router.navigate(["site/cuidador-cadastro"]);
+    this.router.navigate(["cuidador-cadastro"]);
   }
 
   editarCuidador(cuidador: Cuidador) {
-    this.router.navigateByUrl(`site/cuidador-editar/${cuidador.cuidadorId}`);
+    this.router.navigateByUrl(`cuidador-editar/${cuidador.cuidadorId}`);
   }
 
   voltar() {
@@ -70,7 +70,7 @@ carregarForm(){
     this.carregarCuidadores();
   }
   cuidadorDetalhe(cuidador: Cuidador) {
-    this.router.navigateByUrl(`site/cuidador-detalhe/${cuidador.cuidadorId}`);
+    this.router.navigateByUrl(`cuidador-detalhe/${cuidador.cuidadorId}`);
   }
  cuidadorExcluir (cuidador: Cuidador){
   this.cuidadorService.deleteCuidador(cuidador.cuidadorId).subscribe(

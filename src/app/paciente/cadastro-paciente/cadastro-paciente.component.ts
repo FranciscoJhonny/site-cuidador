@@ -407,7 +407,7 @@ export class CadastroPacienteComponent implements OnInit {
         .map((a) => a.descricaoPacote)[0];
       let paciente_Pacote: Paciente_Pacote = {
         pacinete_pacoteId: 0,
-        pacinteId: 0,
+        pacienteId: 0,
         pacoteId: Number(pacoteId),
         descricaoPacoteMensal: descricaoPacote,
         pacoteMensal: pacoteId != 45 ? this.valorPacote: this.pacoteForm.value.valorPacote , //Pacote mensal
@@ -488,41 +488,54 @@ export class CadastroPacienteComponent implements OnInit {
       paciente_PacotePostPostDtos: this.listaPacotePacientePostDto,
       atendimentosPacientePostDtos: this.listaAtendimentos,
     };
-    this.pacienteService.Postpaciente(pacienteCadastro).subscribe(
-      (response) => {
-        if (response) {          
-          this.alertModalService.showAlertSuccess("Paciente cadastrado com sucesso");
-          setTimeout(() => {
-            this.pacienteForm.reset();
-            this.pacoteForm.reset();
-            this.atendimentoForm.reset();
-            this.telefonePacienteForm.reset();
-            this.telefoneResponsavelForm.reset();
-            this.responsavelForm.reset();
-            this.listaTelefonePaciente= [];
-            this.listaResponsavel= [];
-            this.listaPacotePacientePostDto= [];
-            this.listaAtendimentos= [];
-            this.listaPacotePaciente=[];
-            this.createFormPaciente();
-            this.createFormPacoteDesativados();
-            this.createList();
-            this.createFormTelefonePaciente();
-            this.createFormTelefoneResponsavel();
-            this.createFormResponsavel();
-            this.createFormAtendimento();
-            this.carregarPacotes();
-            this.carregarCuidador();
-            this.carregarTurno();
-            //document.location.reload();
-          });
+
+    this.pacienteService.verificaPaciente(pacienteCadastro.nomePaciente).subscribe(
+      (verifica: boolean) => {
+        if(!verifica)  {
+          this.pacienteService.Postpaciente(pacienteCadastro).subscribe(
+            (response) => {
+              if (response) {          
+                this.alertModalService.showAlertSuccess("Paciente cadastrado com sucesso");
+                setTimeout(() => {
+                  this.pacienteForm.reset();
+                  this.pacoteForm.reset();
+                  this.atendimentoForm.reset();
+                  this.telefonePacienteForm.reset();
+                  this.telefoneResponsavelForm.reset();
+                  this.responsavelForm.reset();
+                  this.listaTelefonePaciente= [];
+                  this.listaResponsavel= [];
+                  this.listaPacotePacientePostDto= [];
+                  this.listaAtendimentos= [];
+                  this.listaPacotePaciente=[];
+                  this.createFormPaciente();
+                  this.createFormPacoteDesativados();
+                  this.createList();
+                  this.createFormTelefonePaciente();
+                  this.createFormTelefoneResponsavel();
+                  this.createFormResponsavel();
+                  this.createFormAtendimento();
+                  this.carregarPacotes();
+                  this.carregarCuidador();
+                  this.carregarTurno();
+                  //document.location.reload();
+                });
+              }
+            },
+            (erro) => {
+              console.log(erro);
+            }
+          );
+          this.formResult = JSON.stringify(this.pacienteForm.value);
+        }else
+        {
+          this.alertModalService.showAlertDanger("Paciente ja cadastrado, favor modificalo");
         }
       },
-      (erro) => {
-        console.log(erro);
+      (erro: any) => {
+        console.error(erro);
       }
     );
-    this.formResult = JSON.stringify(this.pacienteForm.value);
     } else{
       this.alertModalService.showAlertDanger("Verifica o(s) campo(s)");
     }
@@ -608,6 +621,6 @@ export class CadastroPacienteComponent implements OnInit {
     return this.pacienteForm.controls[nomeDoCampo].value;
   }
   voltar() {
-    this.router.navigate(["site/paciente"]);
+    this.router.navigate(["paciente"]);
   }
 }

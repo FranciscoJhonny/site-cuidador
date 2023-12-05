@@ -40,7 +40,7 @@
               >
               <thead>
                  <tr class="text-dark">
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Opções</th>
@@ -48,7 +48,7 @@
               </thead>
               <tbody>
                  <tr *ngFor="let paciente of pacientes">
-                    <th scope="row">{{ paciente.pacienteId }}</th>
+                    <!-- <th scope="row">{{ paciente.pacienteId }}</th> -->
                     <td>{{ paciente.nomePaciente }}</td>
                     <td>
                        <span *ngFor="let a of paciente.telefonesPaciente">

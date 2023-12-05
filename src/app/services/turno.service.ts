@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TurnoService {
-  baseUrl = `${environment.UrlPrincipal}/turno`;
+  baseUrl = `${environment.UrlPrincipal}`;
 
   constructor(private http: HttpClient) {}
 

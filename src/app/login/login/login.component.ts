@@ -4,6 +4,7 @@ import { Usuario } from './../../models/usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertModalService } from 'src/app/shared/alert-modal.service';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private fb: FormBuilder,
     private router: Router,
+    private alertModalService: AlertModalService
   ) { }
 
   ngOnInit() {
@@ -40,10 +42,11 @@ export class LoginComponent implements OnInit {
      next: (value) => {
        console.log('Login realizado com sucesso', value);
        const usuario = this.userService.retornarUser();
-       this.router.navigateByUrl('/site/home')
+       this.router.navigateByUrl('/home')
      },
      error:(err)=> {
        console.log('Login deu erro', err);
+       this.alertModalService.showAlertDanger("Usuário ou senha incorreta");
      }
    });
    

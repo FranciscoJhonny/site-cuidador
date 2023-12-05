@@ -38,7 +38,7 @@
            <table class="table text-start align-middle table-bordered table-hover mb-0" >
               <thead>
                  <tr class="text-dark">
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">Nome</th>
                     <th scope="col">Telefone</th>
                     <th scope="col">Opções</th>
@@ -46,7 +46,7 @@
               </thead>
               <tbody>
                  <tr *ngFor="let cuidador of cuidadores">
-                    <th scope="row">{{ cuidador.cuidadorId }}</th>
+                    <!-- <th scope="row">{{ cuidador.cuidadorId }}</th> -->
                     <td>{{ cuidador.nomeCuidador }}</td>
                     <td>
                        <span *ngFor="let a of cuidador.telefonesCuidador">

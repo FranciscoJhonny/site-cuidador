@@ -37,6 +37,8 @@ import ptBr from "@angular/common/locales/pt";
 import { registerLocaleData } from "@angular/common";
 import { LoadingInterceptor } from "./loading.interceptor";
 import { LoginComponent } from "./login/login/login.component";
+import { ListaUsuarioComponent } from './usuario/lista-usuario/lista-usuario.component';
+import { CadastroUsuarioComponent } from "./usuario/cadastro-usuario/cadastro-usuario.component";
 
 
 registerLocaleData(ptBr);
@@ -68,6 +70,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ListaMapaComponent,
     SpinnerComponent,
     LoginComponent,
+    ListaUsuarioComponent,
+    CadastroUsuarioComponent,
+    EditarCuidadoComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +92,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
       useClass: AutenticacaoInterceptor,
       multi: true,
     },
-    { provide: APP_BASE_HREF, useValue: "/" },
+    // { provide: APP_BASE_HREF, useValue: "/" },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: LOCALE_ID, useValue: "pt" },
     { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true },
@@ -96,3 +101,4 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+''

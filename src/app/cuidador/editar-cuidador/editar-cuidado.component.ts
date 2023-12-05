@@ -101,8 +101,8 @@ export class EditarCuidadoComponent implements OnInit {
       this.cuidadorService.PutCuidador(dados).subscribe(
         async (response) => {          
           setTimeout(() => {
-            this.alertModalService.showAlertSuccess("Cuidador cadastrado com sucesso");
-            this.cuidadorForm.reset();            
+            this.alertModalService.showAlertSuccess("Cuidador modificado com sucesso");           
+            this.router.navigate(["cuidador"]);          
           });
         },
         async (erro) => {
@@ -145,7 +145,7 @@ export class EditarCuidadoComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(["site/cuidador"]);
+    this.router.navigate(["cuidador"]);
   }
   adicionarTelefone() {
     if (

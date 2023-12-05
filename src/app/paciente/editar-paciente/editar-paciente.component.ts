@@ -21,6 +21,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from "moment";
+import { PacienteDto } from 'src/app/models/pacienteDto';
+import { Paciente_PacoteDto } from 'src/app/models/paciente_pacoteDto';
 
 @Component({
   selector: 'app-editar-paciente',
@@ -101,7 +103,7 @@ export class EditarPacienteComponent implements OnInit {
   }
   carregarPaciente() {
     this.pacienteService.getById(this.pacienteId).subscribe(
-      (paciente: Paciente) => {
+      (paciente: PacienteDto) => {
         this.pacienteForm = this.fb.group({
           nomePaciente: [paciente.nomePaciente, Validators.required],
           endereco: [paciente.enderecosPaciente[0].logradouro, Validators.required],
@@ -122,6 +124,7 @@ export class EditarPacienteComponent implements OnInit {
         this.listaResponsavel = paciente.responsaveisPaciente;
         this.montarPacotePacienteParaEditar(paciente.paciente_Pacotes);
         this.listaAtendimentos = paciente.atendimentosPaciente;
+        console.log(paciente);
       },
       (erro: any) => {
         console.error(erro);
@@ -443,7 +446,7 @@ export class EditarPacienteComponent implements OnInit {
         .map((a) => a.descricaoPacote)[0];
       let paciente_Pacote: Paciente_Pacote = {
         pacinete_pacoteId: 0,
-        pacinteId: 0,
+        pacienteId: 0,
         pacoteId: Number(pacoteId),
         descricaoPacoteMensal: descricaoPacote,
         pacoteMensal: pacoteId != 45 ? this.valorPacote: this.pacoteForm.value.valorPacote , //Pacote mensal
@@ -525,18 +528,30 @@ export class EditarPacienteComponent implements OnInit {
       paciente_PacotePutDtos: this.listaPacotePacientePutDto,
       atendimentosPacientePutDtos: this.listaAtendimentos,
     };
-    this.pacienteService.PutPaciente(pacienteCadastro).subscribe(
-      (response) => {               
-          setTimeout(() => {  
-            this.alertModalService.showAlertSuccess("Paciente modificado com sucesso");           
-            this.router.navigate(["site/paciente"]);  
-          });
+    this.pacienteService.verificaPaciente(pacienteCadastro.nomePaciente).subscribe(
+      (verifica: boolean) => {
+        if(!verifica)  {
+          this.pacienteService.PutPaciente(pacienteCadastro).subscribe(
+            (response) => {               
+                setTimeout(() => {  
+                  this.alertModalService.showAlertSuccess("Paciente modificado com sucesso");           
+                  this.router.navigate(["paciente"]);  
+                });
+            },
+            (erro) => {
+              console.log(erro);
+            }
+          );
+          this.formResult = JSON.stringify(this.pacienteForm.value);
+        }else
+        {
+          this.alertModalService.showAlertDanger("Paciente ja cadastrado, favor modificalo");
+        }
       },
-      (erro) => {
-        console.log(erro);
+      (erro: any) => {
+        console.error(erro);
       }
     );
-    this.formResult = JSON.stringify(this.pacienteForm.value);
     } else{
       this.alertModalService.showAlertDanger("Verifica o(s) campo(s)");
     }
@@ -562,12 +577,12 @@ export class EditarPacienteComponent implements OnInit {
    })
   }
 
-  montarPacotePacienteParaEditar(pacientesBanco : Paciente_Pacote[]){
+  montarPacotePacienteParaEditar(pacientesBanco : Paciente_PacoteDto[]){
     
     pacientesBanco.forEach(item => {
-      let paciente_Pacote: Paciente_Pacote = {
+      let paciente_Pacote: Paciente_PacoteDto = {
         pacinete_pacoteId: 0,
-        pacinteId: 0,
+        pacienteId: 0,
         pacoteId:item.pacoteId,
         descricaoPacoteMensal: item.descricaoPacoteMensal,
         pacoteMensal: item.valorPacote, //Pacote mensal
@@ -651,6 +666,6 @@ formatarDataEditar(data:string){
     return this.pacienteForm.controls[nomeDoCampo].value;
   }
   voltar() {
-    this.router.navigate(["site/paciente"]);
+    this.router.navigate(["paciente"]);
   }
 }

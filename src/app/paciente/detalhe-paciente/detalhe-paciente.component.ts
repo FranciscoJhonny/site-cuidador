@@ -270,7 +270,7 @@ export class DetalhePacienteComponent implements OnInit {
     pacientesBanco.forEach(item => {
       let paciente_Pacote: Paciente_Pacote = {
         pacinete_pacoteId: 0,
-        pacinteId: 0,
+        pacienteId: 0,
         pacoteId:item.pacoteId,
         descricaoPacoteMensal: item.descricaoPacoteMensal,
         pacoteMensal: item.valorPacote, //Pacote mensal
@@ -306,6 +306,6 @@ formatarDataEditar(data:string){
     return this.pacienteForm.controls[nomeDoCampo].value;
   }
   voltar() {
-    this.router.navigate(["site/paciente"]);
+    this.router.navigate(["paciente"]);
   }
 }

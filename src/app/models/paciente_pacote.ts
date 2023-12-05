@@ -1,6 +1,6 @@
 export interface Paciente_Pacote {
   pacinete_pacoteId: number;
-  pacinteId: number;
+  pacienteId: number;
   pacoteId: number;
   descricaoPacoteMensal: string;
   pacoteMensal: number; //Pacote mensal

@@ -5,10 +5,10 @@ export interface AtendimentoDto {
   pacienteId: number;
   cuidadorId: number;
   nomeCuidador: string;
-  descricaoCategoria: string;
   turnoId: number;
   turno: string;
   profissionalCor: string;
+  descricaoCategoria: string;
   dataInicio: Date;
   telefonesCuidador: TelefoneDto[];
 }
